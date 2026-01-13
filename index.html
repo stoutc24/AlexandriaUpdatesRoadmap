@@ -286,6 +286,111 @@
             font-size: 13px;
         }
 
+        /* Bug Reports */
+        .bugs {
+            padding: 60px 0;
+        }
+
+        .bugs-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .bugs-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bugs-report {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .bugs-report h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .bugs-report p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .bugs-list {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .bugs-list h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bug-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .bug-item:last-child {
+            border-bottom: none;
+        }
+
+        .bug-item .bug-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bug-item .bug-desc {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .bug-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .bug-status.investigating {
+            background: rgba(234, 179, 8, 0.2);
+            color: var(--yellow);
+        }
+
+        .bug-status.fixing {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--blue);
+        }
+
+        .bug-status.fixed {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--green);
+        }
+
+        .no-bugs {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
         /* Community */
         .community {
             padding: 60px 0;
@@ -338,6 +443,7 @@
             <nav class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#roadmap">Roadmap</a>
+                <a href="#bugs">Bug Reports</a>
                 <a href="#community">Community</a>
             </nav>
         </div>
@@ -486,6 +592,61 @@
                         <div class="roadmap-item">
                             <div class="item-title">TBD</div>
                             <div class="item-desc">More exciting features coming soon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bugs" id="bugs">
+            <div class="container">
+                <h2 class="section-title">Bug Reports</h2>
+                <div class="bugs-content">
+                    <div class="bugs-report">
+                        <h3>Found a Bug?</h3>
+                        <p>Help us improve Alexandria by reporting any issues you encounter. Please include your device model, OS version, and steps to reproduce the bug.</p>
+                        <a href="mailto:stoutservers@gmail.com?subject=Alexandria%20Bug%20Report&body=Device:%0AOS%20Version:%0AAlexandria%20Version:%0A%0ADescription:%0A%0ASteps%20to%20Reproduce:%0A1.%0A2.%0A3.%0A%0AExpected%20Behavior:%0A%0AActual%20Behavior:%0A" class="btn btn-primary">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14,12H10V10H14M14,16H10V14H14M20,8H17.19C16.74,7.22 16.12,6.55 15.37,6.04L17,4.41L15.59,3L13.42,5.17C12.96,5.06 12.49,5 12,5C11.51,5 11.04,5.06 10.59,5.17L8.41,3L7,4.41L8.62,6.04C7.88,6.55 7.26,7.22 6.81,8H4V10H6.09C6.04,10.33 6,10.66 6,11V12H4V14H6V15C6,15.34 6.04,15.67 6.09,16H4V18H6.81C7.85,19.79 9.78,21 12,21C14.22,21 16.15,19.79 17.19,18H20V16H17.91C17.96,15.67 18,15.34 18,15V14H20V12H18V11C18,10.66 17.96,10.33 17.91,10H20V8Z"/></svg>
+                            Report a Bug
+                        </a>
+                    </div>
+                    <div class="bugs-list">
+                        <h3><span class="status-dot in-progress"></span> Known Issues</h3>
+                        <div class="no-bugs">No known issues at this time. Thanks for using Alexandria!</div>
+                        <!-- Example bug items (uncomment when there are bugs to track):
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Issue Title
+                                <span class="bug-status investigating">Investigating</span>
+                            </div>
+                            <div class="bug-desc">Brief description of the issue and affected users.</div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+                <div class="bugs-fixed" style="margin-top: 32px;">
+                    <div class="bugs-list">
+                        <h3><span class="status-dot completed"></span> Recently Fixed</h3>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Storyteller auto-scroll positioning
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">Auto-scroll now keeps highlighted text properly visible on screen.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                BookLore scroll mode UI toggle
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">Tap center of screen to show/hide controls in scroll mode.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Storyteller book covers not loading
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">All book covers now display correctly, including audiobook-only titles.</div>
                         </div>
                     </div>
                 </div>

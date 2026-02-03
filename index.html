@@ -384,6 +384,11 @@
             color: var(--green);
         }
 
+        .bug-status.unconfirmed {
+            background: rgba(161, 161, 170, 0.2);
+            color: var(--text-muted);
+        }
+
         .no-bugs {
             color: var(--text-muted);
             font-size: 14px;
@@ -725,6 +730,10 @@
                             <div class="item-title">ABS Tap to Play Toggle</div>
                             <div class="item-desc">Option to disable instant playback on Continue Listening shelf</div>
                         </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Audiobookshelf Progressive Loading</div>
+                            <div class="item-desc">Faster library loading with incremental content fetching</div>
+                        </div>
                     </div>
                     <div class="roadmap-column">
                         <h3><span class="status-dot in-progress"></span> In Progress</h3>
@@ -776,6 +785,25 @@
                                 <span class="bug-status investigating">Investigating</span>
                             </div>
                             <div class="bug-desc">Interrupted downloads can interfere with opening the downloaded book.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bugs-reported" style="margin-top: 32px;">
+                    <div class="bugs-list">
+                        <h3><span class="status-dot planned"></span> Reported Issues</h3>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                .cbz format limited to 50 pages
+                                <span class="bug-status unconfirmed">Unconfirmed</span>
+                            </div>
+                            <div class="bug-desc">Android: CBZ comics may only display up to 50 pages.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Downloading Storyteller book crashes app
+                                <span class="bug-status unconfirmed">Unconfirmed</span>
+                            </div>
+                            <div class="bug-desc">iPhone: App crashes when attempting to download a book from Storyteller.</div>
                         </div>
                     </div>
                 </div>

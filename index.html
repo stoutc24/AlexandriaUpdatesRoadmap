@@ -609,6 +609,11 @@
                 <h2 class="section-title">Latest Features</h2>
                 <div class="features-grid">
                     <div class="feature-card">
+                        <span class="badge badge-new">New</span>
+                        <h3>Chromecast Support</h3>
+                        <p>Cast audiobooks to any Chromecast device with full playback controls, chapter navigation, and cover art display.</p>
+                    </div>
+                    <div class="feature-card">
                         <span class="badge badge-ios">iOS</span>
                         <h3>CarPlay Support</h3>
                         <p>Control your audiobooks hands-free while driving with full CarPlay integration.</p>
@@ -691,6 +696,10 @@
                     <div class="roadmap-column">
                         <h3><span class="status-dot completed"></span> Completed</h3>
                         <div class="roadmap-item">
+                            <div class="item-title">Chromecast Support</div>
+                            <div class="item-desc">Cast audiobooks to Chromecast devices with full playback controls</div>
+                        </div>
+                        <div class="roadmap-item">
                             <div class="item-title">CarPlay Support</div>
                             <div class="item-desc">Full audiobook controls in CarPlay</div>
                         </div>
@@ -737,6 +746,10 @@
                     </div>
                     <div class="roadmap-column">
                         <h3><span class="status-dot in-progress"></span> In Progress</h3>
+                        <div class="roadmap-item">
+                            <div class="item-title">Chromecast Phase 2</div>
+                            <div class="item-desc">Plex and Jellyfin casting, volume control, session reconnection</div>
+                        </div>
                         <div class="roadmap-item">
                             <div class="item-title">Home Screen Widgets</div>
                             <div class="item-desc">Quick access widgets for iOS & Android</div>
@@ -812,10 +825,31 @@
                         <h3><span class="status-dot completed"></span> Recently Fixed</h3>
                         <div class="bug-item">
                             <div class="bug-title">
+                                Zoomed seek overlay for audiobooks
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">Added precision seek overlay for accurate audiobook positioning.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                ABS listening session duplication
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">Reduced duplicate listening sessions by reusing session IDs across syncs.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Calibre series metadata offline
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">Series metadata now saves correctly for Calibre Content Server downloads.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
                                 Large Storyteller books crash on download
                                 <span class="bug-status fixed">Fixed</span>
                             </div>
-                            <div class="bug-desc">Large aligned books (2GB+) crashed the app when extracting into the Storyteller reader.</div>
+                            <div class="bug-desc">Fixed extraction issues for large aligned books (200MB+) including ANR and blank first page on Android.</div>
                         </div>
                         <div class="bug-item">
                             <div class="bug-title">

@@ -743,13 +743,17 @@
                             <div class="item-title">Audiobookshelf Progressive Loading</div>
                             <div class="item-desc">Faster library loading with incremental content fetching</div>
                         </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Download Folder Organization</div>
+                            <div class="item-desc">Plex/Jellyfin downloads organized by series in Downloads tab</div>
+                        </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Sleep Timer Background Support</div>
+                            <div class="item-desc">Sleep timer now works when phone is locked</div>
+                        </div>
                     </div>
                     <div class="roadmap-column">
                         <h3><span class="status-dot in-progress"></span> In Progress</h3>
-                        <div class="roadmap-item">
-                            <div class="item-title">Download Folder Organization</div>
-                            <div class="item-desc">Organize Plex/Jellyfin downloads into folders by series</div>
-                        </div>
                         <div class="roadmap-item">
                             <div class="item-title">Chromecast Phase 2</div>
                             <div class="item-desc">Plex and Jellyfin casting, volume control, session reconnection</div>
@@ -827,6 +831,20 @@
                 <div class="bugs-fixed" style="margin-top: 32px;">
                     <div class="bugs-list">
                         <h3><span class="status-dot completed"></span> Recently Fixed</h3>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                ABS sync race condition
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">Added sync cooldown to prevent stale cached positions from overwriting correct server progress.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Sleep timer when phone locked
+                                <span class="bug-status fixed">Fixed</span>
+                            </div>
+                            <div class="bug-desc">Sleep timer now tracks audio position instead of wall-clock time, working reliably when phone is locked.</div>
+                        </div>
                         <div class="bug-item">
                             <div class="bug-title">
                                 Plex video offline playback
@@ -961,9 +979,9 @@
                         <div class="bug-item">
                             <div class="bug-title">
                                 Sleep Timer Enhancements
-                                <span class="bug-status investigating">Considering</span>
+                                <span class="bug-status fixed">Implemented</span>
                             </div>
-                            <div class="bug-desc">Additional sleep timer options like end of chapter or custom durations.</div>
+                            <div class="bug-desc">Sleep timer now works reliably when phone is locked by tracking audio position.</div>
                         </div>
                     </div>
                 </div>

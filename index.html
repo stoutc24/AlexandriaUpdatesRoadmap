@@ -983,6 +983,10 @@
                             <div class="item-title">Batch Downloads</div>
                             <div class="item-desc">Download entire series or playlists at once across all services</div>
                         </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Android Auto Overhaul</div>
+                            <div class="item-desc">Fix cold-launch, progress resume, and connection stability on Android Auto (CarPlay works correctly)</div>
+                        </div>
                     </div>
                     <div class="roadmap-column">
                         <h3><span class="status-dot planned"></span> Planned</h3>
@@ -1013,6 +1017,13 @@
                     </div>
                     <div class="bugs-list">
                         <h3><span class="status-dot in-progress"></span> Known Issues</h3>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Android Auto completely broken
+                                <span class="bug-status fixing">In Progress</span>
+                            </div>
+                            <div class="bug-desc">Android Auto cannot cold-launch the app, cannot maintain connection when plugging into the car, and does not resume playback position. The entire Android Auto experience is non-functional. iOS CarPlay is unaffected.</div>
+                        </div>
                         <div class="bug-item">
                             <div class="bug-title">
                                 BookLore interrupted downloads
@@ -1089,9 +1100,9 @@
                         <div class="bug-item">
                             <div class="bug-title">
                                 Android Auto slow startup
-                                <span class="bug-status fixed">Fixed</span>
+                                <span class="bug-status fixing">Regressed</span>
                             </div>
-                            <div class="bug-desc">Browse tree loads instantly, downloaded books start without network wait, and seek times reduced from 10s to under 2s.</div>
+                            <div class="bug-desc">Previously fixed startup speed has regressed. Android Auto cold-launch, connection stability, and progress resume are all broken. Full overhaul in progress.</div>
                         </div>
                     </div>
                 </div>

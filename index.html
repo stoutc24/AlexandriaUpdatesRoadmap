@@ -139,6 +139,136 @@
             background: var(--border);
         }
 
+        /* v2.0.0 Banner */
+        .v2-banner {
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v2-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.06) 50%, rgba(59, 130, 246, 0.04) 100%);
+            pointer-events: none;
+        }
+
+        .v2-header {
+            text-align: center;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .v2-label {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, var(--primary), #8b5cf6);
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .v2-header h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 0%, #c4b5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .v2-header p {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .v2-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            position: relative;
+        }
+
+        .v2-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .v2-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .v2-card-icon span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 22px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .v2-card-icon.ui { background: rgba(139, 92, 246, 0.15); }
+        .v2-card-icon.features { background: rgba(59, 130, 246, 0.15); }
+        .v2-card-icon.perf { background: rgba(34, 197, 94, 0.15); }
+        .v2-card-icon.security { background: rgba(234, 179, 8, 0.15); }
+
+        .v2-card {
+            text-align: center;
+        }
+
+        .v2-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .v2-card ul {
+            list-style: none;
+            padding: 0;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .v2-card ul li {
+            font-size: 14px;
+            color: var(--text-muted);
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .v2-card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 13px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+            opacity: 0.6;
+        }
+
         /* Services Grid */
         .services {
             padding: 60px 0;
@@ -220,6 +350,11 @@
             color: var(--green);
         }
 
+        .badge-v2 {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+        }
+
         .feature-card h3 {
             font-size: 18px;
             margin-bottom: 8px;
@@ -237,8 +372,10 @@
 
         .roadmap-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .roadmap-column {
@@ -465,6 +602,25 @@
             text-align: center;
         }
 
+        .gallery-placeholder {
+            background: var(--bg-card);
+            border: 2px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 280px;
+            color: var(--text-muted);
+            font-size: 14px;
+            gap: 8px;
+        }
+
+        .gallery-placeholder .placeholder-icon {
+            font-size: 32px;
+            opacity: 0.4;
+        }
+
         /* Lightbox */
         .lightbox {
             display: none;
@@ -520,6 +676,18 @@
                 font-size: 24px;
             }
 
+            .v2-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .v2-header h2 {
+                font-size: 28px;
+            }
+
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
@@ -532,6 +700,7 @@
         <div class="container header-content">
             <a href="/" class="logo"><img src="images/app-icon.png" alt="Alexandria" style="height: 32px; width: 32px; border-radius: 6px; margin-right: 10px; vertical-align: middle;">Alexandria</a>
             <nav class="nav-links">
+                <a href="#v2">What's New</a>
                 <a href="#features">Features</a>
                 <a href="#gallery">Screenshots</a>
                 <a href="#roadmap">Roadmap</a>
@@ -560,44 +729,101 @@
             </div>
         </section>
 
+        <!-- v2.0.0 Banner -->
+        <section class="v2-banner" id="v2">
+            <div class="container">
+                <div class="v2-header">
+                    <div class="v2-label">Coming Soon</div>
+                    <h2>Version 2.0.0</h2>
+                    <p>A complete evolution of Alexandria. Rebuilt from the ground up with a new design, new capabilities, and serious performance improvements.</p>
+                </div>
+                <div class="v2-grid">
+                    <div class="v2-card">
+                        <h3>Redesigned UI</h3>
+                        <ul>
+                            <li>Material 3 design with dynamic theming</li>
+                            <li>Dark, AMOLED, and E-ink display modes</li>
+                            <li>Smart Collections with custom section management</li>
+                            <li>Unified library view across all services</li>
+                            <li>Polished empty states across 30+ screens</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
+                        <h3>New Capabilities</h3>
+                        <ul>
+                            <li>Chromecast audiobook casting with full controls</li>
+                            <li>CarPlay and Android Auto integration</li>
+                            <li>Apple Watch companion app</li>
+                            <li>Offline downloads across all services</li>
+                            <li>Global search across all servers (including offline)</li>
+                            <li>Global playback queue with auto-advance</li>
+                            <li>Custom sleep timer with background support</li>
+                            <li>Listening history & session management for ABS</li>
+                            <li>ABS progress sync with session tracking</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
+                        <h3>Performance</h3>
+                        <ul>
+                            <li>Progressive library loading for large collections</li>
+                            <li>Android Auto fast startup and seek optimization</li>
+                            <li>SQLite-powered offline search index</li>
+                            <li>Reduced streaming buffer for lower memory usage</li>
+                            <li>Background sleep timer via audio position tracking</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
+                        <h3>Security & Connectivity</h3>
+                        <ul>
+                            <li>OIDC authentication support</li>
+                            <li>Multi-server connections (up to 3 per service)</li>
+                            <li>Self-signed certificate support</li>
+                            <li>Offline sync with server progress reconciliation</li>
+                            <li>Connectivity-aware sync intervals</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="services">
             <div class="container">
                 <h2 class="section-title">Supported Services</h2>
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="icon">🎧</div>
+                        <div class="icon">&#x1f3a7;</div>
                         <div class="name">Audiobookshelf</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">📚</div>
+                        <div class="icon">&#x1f4da;</div>
                         <div class="name">Kavita</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🎬</div>
+                        <div class="icon">&#x1f3ac;</div>
                         <div class="name">Plex</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">📺</div>
+                        <div class="icon">&#x1f4fa;</div>
                         <div class="name">Jellyfin</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">📖</div>
+                        <div class="icon">&#x1f4d6;</div>
                         <div class="name">BookLore</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">📕</div>
+                        <div class="icon">&#x1f4d5;</div>
                         <div class="name">Calibre</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🌐</div>
+                        <div class="icon">&#x1f310;</div>
                         <div class="name">Calibre-Web</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">📗</div>
+                        <div class="icon">&#x1f4d7;</div>
                         <div class="name">Storyteller</div>
                     </div>
                     <div class="service-card">
-                        <div class="icon">📰</div>
+                        <div class="icon">&#x1f4f0;</div>
                         <div class="name">Komga</div>
                     </div>
                 </div>
@@ -606,42 +832,57 @@
 
         <section class="features" id="features">
             <div class="container">
-                <h2 class="section-title">Latest Features</h2>
+                <h2 class="section-title">Features</h2>
                 <div class="features-grid">
                     <div class="feature-card">
-                        <span class="badge badge-new">New</span>
+                        <span class="badge badge-v2">v2.0</span>
                         <h3>Chromecast Support</h3>
                         <p>Cast audiobooks to any Chromecast device with full playback controls, chapter navigation, and cover art display.</p>
                     </div>
                     <div class="feature-card">
+                        <span class="badge badge-v2">v2.0</span>
+                        <h3>Apple Watch App</h3>
+                        <p>Control playback, browse your library, and see cover art directly from your wrist with the companion Watch app.</p>
+                    </div>
+                    <div class="feature-card">
                         <span class="badge badge-ios">iOS</span>
-                        <h3>CarPlay Support</h3>
-                        <p>Control your audiobooks hands-free while driving with full CarPlay integration.</p>
+                        <h3>CarPlay</h3>
+                        <p>Browse and play audiobooks hands-free while driving with full CarPlay integration across all services.</p>
                     </div>
                     <div class="feature-card">
                         <span class="badge badge-android">Android</span>
                         <h3>Android Auto</h3>
-                        <p>Seamless audiobook playback in your car with Android Auto support.</p>
+                        <p>Seamless audiobook browsing and playback in your car with fast startup and seek optimization.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="badge badge-new">New</span>
-                        <h3>Multi-Server Connections</h3>
-                        <p>Connect to multiple servers per service. Switch between home and work servers instantly.</p>
+                        <span class="badge badge-v2">v2.0</span>
+                        <h3>Unified Library</h3>
+                        <p>See all your content from every connected service in one unified view. Filter, sort, and search across everything.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="badge badge-new">New</span>
-                        <h3>Unified Library View</h3>
-                        <p>See all your content from every connected service in one unified view.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-new">New</span>
-                        <h3>Global Search</h3>
-                        <p>Search across all your connected servers and services at once.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-new">New</span>
+                        <span class="badge badge-v2">v2.0</span>
                         <h3>Offline Downloads</h3>
-                        <p>Download audiobooks and ebooks for offline listening and reading.</p>
+                        <p>Download audiobooks, ebooks, and comics from any service for offline listening and reading.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v2">v2.0</span>
+                        <h3>Global Search</h3>
+                        <p>Search across all connected servers at once. Works offline too with a local SQLite search index.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-new">New</span>
+                        <h3>Smart Collections</h3>
+                        <p>Customize your home screen with manageable, reorderable sections. Show exactly what matters to you.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-new">New</span>
+                        <h3>Session Management</h3>
+                        <p>View and close open ABS listening sessions directly from the app. Automatic session cleanup prevents orphaned entries.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v2">v2.0</span>
+                        <h3>Multi-Server</h3>
+                        <p>Connect to multiple servers per service. Switch between home and work servers instantly.</p>
                     </div>
                 </div>
             </div>
@@ -650,34 +891,70 @@
         <section class="gallery" id="gallery">
             <div class="container">
                 <h2 class="section-title">Screenshots</h2>
+                <h3 style="text-align: center; color: var(--text-muted); font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px;">v2.0</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="openLightbox('images/v2-unified-library.png')">
+                        <img src="images/v2-unified-library.png" alt="Unified Library">
+                        <div class="caption">Unified Library</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/v2-smart-collections.png')">
+                        <img src="images/v2-smart-collections.png" alt="Smart Collections">
+                        <div class="caption">Smart Collections</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/v2-home.png')">
+                        <img src="images/v2-home.png" alt="Home Screen">
+                        <div class="caption">Home Screen</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/v2-now-playing.png')">
+                        <img src="images/v2-now-playing.png" alt="Now Playing">
+                        <div class="caption">Now Playing</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/v2-series-queue.png')">
+                        <img src="images/v2-series-queue.png" alt="Series Queue">
+                        <div class="caption">Series Queue</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/v2-navigation.png')">
+                        <img src="images/v2-navigation.png" alt="Navigation">
+                        <div class="caption">Navigation & Services</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/v2-goals-stats.png')">
+                        <img src="images/v2-goals-stats.png" alt="Goals & Stats">
+                        <div class="caption">Goals & Stats</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/v2-listening-stats.png')">
+                        <img src="images/v2-listening-stats.png" alt="Listening Stats">
+                        <div class="caption">Listening Stats</div>
+                    </div>
+                </div>
+                <h3 style="text-align: center; color: var(--text-muted); font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 48px; margin-bottom: 24px;">v1.0</h3>
                 <div class="gallery-grid">
                     <div class="gallery-item" onclick="openLightbox('images/screenshot-home.png')">
                         <img src="images/screenshot-home.png" alt="Home Screen">
-                        <div class="caption">Audiobookshelf Home</div>
+                        <div class="caption">Home Screen</div>
                     </div>
                     <div class="gallery-item" onclick="openLightbox('images/screenshot-discover.png')">
-                        <img src="images/screenshot-discover.png" alt="Discover Books">
-                        <div class="caption">Discover New Books</div>
+                        <img src="images/screenshot-discover.png" alt="Discover">
+                        <div class="caption">Discover</div>
                     </div>
                     <div class="gallery-item" onclick="openLightbox('images/screenshot-series.png')">
-                        <img src="images/screenshot-series.png" alt="Series View">
-                        <div class="caption">Series Browser</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-switch-service.png')">
-                        <img src="images/screenshot-switch-service.png" alt="Switch Service">
-                        <div class="caption">Multi-Service Support</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-storyteller.png')">
-                        <img src="images/screenshot-storyteller.png" alt="Storyteller">
-                        <div class="caption">Storyteller Integration</div>
+                        <img src="images/screenshot-series.png" alt="Series">
+                        <div class="caption">Series</div>
                     </div>
                     <div class="gallery-item" onclick="openLightbox('images/screenshot-kavita.png')">
                         <img src="images/screenshot-kavita.png" alt="Kavita">
-                        <div class="caption">Kavita Library</div>
+                        <div class="caption">Kavita</div>
                     </div>
                     <div class="gallery-item" onclick="openLightbox('images/screenshot-komga.png')">
                         <img src="images/screenshot-komga.png" alt="Komga">
-                        <div class="caption">Komga Comics</div>
+                        <div class="caption">Komga</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/screenshot-storyteller.png')">
+                        <img src="images/screenshot-storyteller.png" alt="Storyteller">
+                        <div class="caption">Storyteller</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images/screenshot-switch-service.png')">
+                        <img src="images/screenshot-switch-service.png" alt="Switch Service">
+                        <div class="caption">Switch Service</div>
                     </div>
                 </div>
             </div>
@@ -694,100 +971,25 @@
                 <h2 class="section-title">Roadmap</h2>
                 <div class="roadmap-grid">
                     <div class="roadmap-column">
-                        <h3><span class="status-dot completed"></span> Completed</h3>
-                        <div class="roadmap-item">
-                            <div class="item-title">Chromecast Support</div>
-                            <div class="item-desc">Cast audiobooks to Chromecast devices with full playback controls</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">CarPlay Support</div>
-                            <div class="item-desc">Full audiobook controls in CarPlay</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Android Auto</div>
-                            <div class="item-desc">Audiobook playback while driving</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Multi-Server Connections</div>
-                            <div class="item-desc">Up to 3 connections per service</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">BookLore Integration</div>
-                            <div class="item-desc">Full support for BookLore servers</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Storyteller Integration</div>
-                            <div class="item-desc">Support for Storyteller servers</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">watchOS Support</div>
-                            <div class="item-desc">Remote controls on Apple Watch</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">History Section</div>
-                            <div class="item-desc">Listening history for Audiobookshelf</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Komga Integration</div>
-                            <div class="item-desc">Full support for Komga comic/manga servers</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Komga Offline Downloads</div>
-                            <div class="item-desc">Download comics for offline reading</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">ABS Tap to Play Toggle</div>
-                            <div class="item-desc">Option to disable instant playback on Continue Listening shelf</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Audiobookshelf Progressive Loading</div>
-                            <div class="item-desc">Faster library loading with incremental content fetching</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Download Folder Organization</div>
-                            <div class="item-desc">Plex/Jellyfin downloads organized by series in Downloads tab</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Sleep Timer Background Support</div>
-                            <div class="item-desc">Sleep timer now works when phone is locked</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Offline Global Search</div>
-                            <div class="item-desc">SQLite-powered search index lets you search your library while offline</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Custom Sleep Timer</div>
-                            <div class="item-desc">Set any custom duration in minutes for sleep timer</div>
-                        </div>
-                    </div>
-                    <div class="roadmap-column">
                         <h3><span class="status-dot in-progress"></span> In Progress</h3>
                         <div class="roadmap-item">
                             <div class="item-title">Chromecast Phase 2</div>
                             <div class="item-desc">Plex and Jellyfin casting, volume control, session reconnection</div>
                         </div>
                         <div class="roadmap-item">
-                            <div class="item-title">Home Screen Widgets</div>
-                            <div class="item-desc">Quick access widgets for iOS & Android</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Podcasts in Unified View</div>
-                            <div class="item-desc">Add ABS podcasts to the unified home screen</div>
+                            <div class="item-title">Batch Downloads</div>
+                            <div class="item-desc">Download entire series or playlists at once across all services</div>
                         </div>
                     </div>
                     <div class="roadmap-column">
                         <h3><span class="status-dot planned"></span> Planned</h3>
                         <div class="roadmap-item">
+                            <div class="item-title">Text-to-Speech for eBooks</div>
+                            <div class="item-desc">Read Aloud for EPUB readers with listening time tracking</div>
+                        </div>
+                        <div class="roadmap-item">
                             <div class="item-title">Emby Integration</div>
                             <div class="item-desc">Support for Emby media servers</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Extended OIDC Support</div>
-                            <div class="item-desc">OIDC authentication for more than just Audiobookshelf</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Alexandria Lite</div>
-                            <div class="item-desc">Lightweight version with single service access</div>
                         </div>
                     </div>
                 </div>
@@ -841,129 +1043,52 @@
                         <h3><span class="status-dot completed"></span> Recently Fixed</h3>
                         <div class="bug-item">
                             <div class="bug-title">
-                                ABS sync race condition
-                                <span class="bug-status fixed">Fixed</span>
+                                Extended OIDC Support
+                                <span class="bug-status fixed">Shipped</span>
                             </div>
-                            <div class="bug-desc">Added sync cooldown to prevent stale cached positions from overwriting correct server progress.</div>
+                            <div class="bug-desc">OIDC authentication now supported across all compatible services, not just Audiobookshelf.</div>
                         </div>
                         <div class="bug-item">
                             <div class="bug-title">
-                                Sleep timer when phone locked
+                                ABS progress not syncing to server
                                 <span class="bug-status fixed">Fixed</span>
                             </div>
-                            <div class="bug-desc">Sleep timer now tracks audio position instead of wall-clock time, working reliably when phone is locked.</div>
+                            <div class="bug-desc">Lazy session creation ensures progress always syncs. Manual sync button now bypasses cooldown guards for immediate sync.</div>
                         </div>
                         <div class="bug-item">
                             <div class="bug-title">
-                                Plex video offline playback
+                                Orphaned ABS listening sessions
                                 <span class="bug-status fixed">Fixed</span>
                             </div>
-                            <div class="bug-desc">Downloaded Plex movies and TV episodes now play in airplane mode.</div>
+                            <div class="bug-desc">Previous sessions are now closed before creating new ones. Eliminated ghost 30-second sessions from redundant session creation.</div>
                         </div>
                         <div class="bug-item">
                             <div class="bug-title">
-                                Komga library pagination
+                                Play/Resume navigation delay
                                 <span class="bug-status fixed">Fixed</span>
                             </div>
-                            <div class="bug-desc">Libraries with more than 50 series now load all content correctly.</div>
+                            <div class="bug-desc">Tapping play on hero cards now navigates to Now Playing immediately instead of waiting for media to fully load.</div>
                         </div>
                         <div class="bug-item">
                             <div class="bug-title">
-                                ABS alphabet scrollbar accuracy
+                                Bookmark double-delete required
                                 <span class="bug-status fixed">Fixed</span>
                             </div>
-                            <div class="bug-desc">Library tab alphabet navigation now jumps to correct letter positions.</div>
+                            <div class="bug-desc">Bookmarks now delete on first tap by clearing the local cache immediately on successful server deletion.</div>
                         </div>
                         <div class="bug-item">
                             <div class="bug-title">
-                                Zoomed seek overlay for audiobooks
+                                Android splash screen font flash
                                 <span class="bug-status fixed">Fixed</span>
                             </div>
-                            <div class="bug-desc">Added precision seek overlay for accurate audiobook positioning.</div>
+                            <div class="bug-desc">Quote text no longer re-renders with a different font when the themed app loads on Android.</div>
                         </div>
                         <div class="bug-item">
                             <div class="bug-title">
-                                ABS listening session duplication
+                                Android Auto slow startup
                                 <span class="bug-status fixed">Fixed</span>
                             </div>
-                            <div class="bug-desc">Reduced duplicate listening sessions by reusing session IDs across syncs.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Calibre series metadata offline
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Series metadata now saves correctly for Calibre Content Server downloads.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Large Storyteller books crash on download
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Fixed extraction issues for large aligned books (200MB+) including ANR and blank first page on Android.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                BookLore Login Issues
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Resolved 401/402 errors and login redirect issues when connecting to BookLore servers.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Podcasts Not Playing on Tap
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Podcast episodes now play correctly when tapped in the podcast library.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                ABS Lock Screen Controls
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Lock screen, notification, and Control Center controls now work correctly for streaming playback on all platforms.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Kavita Comic Reader
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Fixed navigation (swipe/tap to page through) and zoom issues - images now display properly formatted.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Audiobookshelf Background Sync
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Progress now syncs correctly when pausing playback from notification while app is backgrounded.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                BookLore Offline Downloads
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">CBX comics now properly load from the Downloads section for offline reading.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Storyteller auto-scroll positioning
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Auto-scroll now keeps highlighted text properly visible on screen.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                BookLore scroll mode UI toggle
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Tap center of screen to show/hide controls in scroll mode.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Storyteller book covers not loading
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">All book covers now display correctly, including audiobook-only titles.</div>
+                            <div class="bug-desc">Browse tree loads instantly, downloaded books start without network wait, and seek times reduced from 10s to under 2s.</div>
                         </div>
                     </div>
                 </div>

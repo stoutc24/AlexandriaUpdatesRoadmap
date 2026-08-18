@@ -355,6 +355,11 @@
             color: #a78bfa;
         }
 
+        .badge-v3 {
+            background: rgba(34, 211, 238, 0.2);
+            color: #22d3ee;
+        }
+
         .feature-card h3 {
             font-size: 18px;
             margin-bottom: 8px;
@@ -372,9 +377,9 @@
 
         .roadmap-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
-            max-width: 800px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -732,57 +737,57 @@
             </div>
         </section>
 
-        <!-- v2.0.0 Banner -->
+        <!-- v3.0.0 Banner -->
         <section class="v2-banner" id="v2">
             <div class="container">
                 <div class="v2-header">
-                    <div class="v2-label">Coming Soon</div>
-                    <h2>Version 2.0.0</h2>
-                    <p>A complete evolution of Alexandria. Rebuilt from the ground up with a new design, new capabilities, and serious performance improvements.</p>
+                    <div class="v2-label">Rolling Out Now</div>
+                    <h2>Version 3.0.0</h2>
+                    <p>The biggest release yet. Jellyfin goes end-to-end with music and video, Grimmory joins the family, hi-res audio goes bit-perfect, and offline finally works the way it should.</p>
                 </div>
                 <div class="v2-grid">
                     <div class="v2-card">
-                        <h3>Redesigned UI</h3>
+                        <h3>Jellyfin, Complete</h3>
                         <ul>
-                            <li>Material 3 design with dynamic theming</li>
-                            <li>Dark, AMOLED, and E-ink display modes</li>
-                            <li>Smart Collections with custom section management</li>
-                            <li>Unified library view across all services</li>
-                            <li>Polished empty states across 30+ screens</li>
+                            <li>Full music experience: playlists, music-style home, artist pages</li>
+                            <li>Quality selector, Chromecast, CarPlay &amp; Android Auto</li>
+                            <li>Brand-new Jellyfin Video: movies &amp; TV browsing with collections</li>
+                            <li>Continue Watching and playback with resume</li>
+                            <li>Subtitle &amp; audio track selection, sleep timer</li>
                         </ul>
                     </div>
                     <div class="v2-card">
-                        <h3>New Capabilities</h3>
+                        <h3>Grimmory Support</h3>
                         <ul>
-                            <li>Chromecast audiobook casting with full controls</li>
-                            <li>CarPlay and Android Auto integration</li>
-                            <li>Apple Watch companion app</li>
-                            <li>Offline downloads across all services</li>
-                            <li>Global search across all servers (including offline)</li>
-                            <li>Global playback queue with auto-advance</li>
-                            <li>Custom sleep timer with background support</li>
-                            <li>Listening history & session management for ABS</li>
-                            <li>ABS progress sync with session tracking</li>
+                            <li>BookLore has been succeeded by Grimmory</li>
+                            <li>Alexandria fully supports Grimmory</li>
+                            <li>Existing BookLore connections keep working unchanged</li>
                         </ul>
                     </div>
                     <div class="v2-card">
-                        <h3>Performance</h3>
+                        <h3>True Hi-Res Audio</h3>
                         <ul>
-                            <li>Progressive library loading for large collections</li>
-                            <li>Android Auto fast startup and seek optimization</li>
-                            <li>SQLite-powered offline search index</li>
-                            <li>Reduced streaming buffer for lower memory usage</li>
-                            <li>Background sleep timer via audio position tracking</li>
+                            <li>Bit-perfect lossless FLAC streaming for Plex and Jellyfin</li>
+                            <li>Full 24-bit hi-res support</li>
+                            <li>Powered by the mpv audio engine</li>
                         </ul>
                     </div>
                     <div class="v2-card">
-                        <h3>Security & Connectivity</h3>
+                        <h3>Offline, For Real</h3>
                         <ul>
-                            <li>OIDC authentication support</li>
-                            <li>Multi-server connections (up to 3 per service)</li>
-                            <li>Self-signed certificate support</li>
-                            <li>Offline sync with server progress reconciliation</li>
-                            <li>Connectivity-aware sync intervals</li>
+                            <li>Every service's Downloads section redesigned</li>
+                            <li>Series-grouped grids, cover art, and summaries — all offline</li>
+                            <li>Downloaded books, comics, and music open with zero network</li>
+                            <li>Offline no longer dead-ends on error screens</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
+                        <h3>Your Whole Library</h3>
+                        <ul>
+                            <li>Hidden list caps removed across every service</li>
+                            <li>Huge Komga series and 500+ item Jellyfin and Calibre libraries</li>
+                            <li>Kavita reading lists and collections show everything</li>
+                            <li>ABS Continue Listening shows everything</li>
                         </ul>
                     </div>
                 </div>
@@ -804,14 +809,17 @@
                     <div class="service-card">
                         <div class="icon">&#x1f3ac;</div>
                         <div class="name">Plex</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Music, audiobooks &amp; video</div>
                     </div>
                     <div class="service-card">
                         <div class="icon">&#x1f4fa;</div>
                         <div class="name">Jellyfin</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Music, audiobooks &amp; video</div>
                     </div>
                     <div class="service-card">
                         <div class="icon">&#x1f4d6;</div>
-                        <div class="name">BookLore</div>
+                        <div class="name">Grimmory</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Formerly BookLore</div>
                     </div>
                     <div class="service-card">
                         <div class="icon">&#x1f4d5;</div>
@@ -837,6 +845,51 @@
             <div class="container">
                 <h2 class="section-title">Features</h2>
                 <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Jellyfin Video</h3>
+                        <p>Browse movies &amp; TV with collections and Continue Watching. Playback with resume, subtitle and audio track selection, and a sleep timer.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Grimmory</h3>
+                        <p>BookLore has been succeeded by Grimmory, and Alexandria fully supports it. Existing BookLore connections keep working unchanged.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Synced Lyrics</h3>
+                        <p>Time-synced lyrics for Plex and Jellyfin music, with an online fallback when your server doesn't provide them.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Music Recommendations &amp; History</h3>
+                        <p>Last.fm-powered music recommendations plus a listening history for your music.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Goodreads &amp; StoryGraph Import</h3>
+                        <p>One-time CSV import brings over your reading history, ratings, and want-to-read list.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Audiobook &harr; Ebook Linking</h3>
+                        <p>Pair ABS audiobooks with their ebooks and Storyteller editions — and resume your place across formats.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Download Series</h3>
+                        <p>One tap queues an entire series for download.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Accurate VBR MP3 Seeking</h3>
+                        <p>Seeking in variable-bitrate MP3s now lands exactly where you expect.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Faster Cold Starts</h3>
+                        <p>Cache-first home screens get you into your library faster on launch.</p>
+                    </div>
                     <div class="feature-card">
                         <span class="badge badge-v2">v2.0</span>
                         <h3>Chromecast Support</h3>
@@ -865,7 +918,7 @@
                     <div class="feature-card">
                         <span class="badge badge-v2">v2.0</span>
                         <h3>Offline Downloads</h3>
-                        <p>Download audiobooks, ebooks, and comics from any service for offline listening and reading.</p>
+                        <p>Download audiobooks, ebooks, comics, and music from any service. Redesigned in v3.0 with series-grouped grids, cover art, and summaries — downloads open with zero network.</p>
                     </div>
                     <div class="feature-card">
                         <span class="badge badge-v2">v2.0</span>
@@ -873,12 +926,12 @@
                         <p>Search across all connected servers at once. Works offline too with a local SQLite search index.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="badge badge-new">New</span>
+                        <span class="badge badge-v2">v2.0</span>
                         <h3>Smart Collections</h3>
                         <p>Customize your home screen with manageable, reorderable sections. Show exactly what matters to you.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="badge badge-new">New</span>
+                        <span class="badge badge-v2">v2.0</span>
                         <h3>Session Management</h3>
                         <p>View and close open ABS listening sessions directly from the app. Automatic session cleanup prevents orphaned entries.</p>
                     </div>
@@ -888,12 +941,12 @@
                         <p>Connect to multiple servers per service. Switch between home and work servers instantly.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="badge badge-new">New</span>
+                        <span class="badge badge-v2">v2.0</span>
                         <h3>Reading Plans &amp; Reminders</h3>
                         <p>Build reading plans with target dates, drag-to-reorder books, per-book pacing (hours per day to finish on time) and link multiple alarm-style reminders that open the right plan when tapped.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="badge badge-new">New</span>
+                        <span class="badge badge-v2">v2.0</span>
                         <h3>Upcoming Releases</h3>
                         <p>Discover real pre-order dates for your favorite authors and genres. Three sections — Releasing Soon, Discover, and Recently Released — with optional new-release notifications.</p>
                     </div>
@@ -986,23 +1039,46 @@
                     <div class="roadmap-column">
                         <h3><span class="status-dot in-progress"></span> In Progress</h3>
                         <div class="roadmap-item">
-                            <div class="item-title">Chromecast Phase 2</div>
-                            <div class="item-desc">Plex and Jellyfin casting, volume control, session reconnection</div>
+                            <div class="item-title">Polish &amp; Performance for v3.0.x</div>
+                            <div class="item-desc">Bug fixes and refinements driven by community feedback</div>
                         </div>
                         <div class="roadmap-item">
-                            <div class="item-title">Batch Downloads</div>
-                            <div class="item-desc">Download entire series or playlists at once across all services</div>
+                            <div class="item-title">Jellyfin Video Downloads</div>
+                            <div class="item-desc">Offline video — take your movies and shows with you</div>
                         </div>
                     </div>
                     <div class="roadmap-column">
                         <h3><span class="status-dot planned"></span> Planned</h3>
                         <div class="roadmap-item">
-                            <div class="item-title">Text-to-Speech for eBooks</div>
-                            <div class="item-desc">Read Aloud for EPUB readers with listening time tracking</div>
+                            <div class="item-title">Generic OPDS Server Support</div>
+                            <div class="item-desc">COPS, Ubooquity, and any standard OPDS feed</div>
                         </div>
                         <div class="roadmap-item">
-                            <div class="item-title">Emby Integration</div>
-                            <div class="item-desc">Support for Emby media servers</div>
+                            <div class="item-title">Navidrome / Subsonic</div>
+                            <div class="item-desc">Support for Navidrome and Subsonic-compatible music servers</div>
+                        </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Stump</div>
+                            <div class="item-desc">Support for the Stump comic server</div>
+                        </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">BookWyrm Reading Sync</div>
+                            <div class="item-desc">Sync reading activity with BookWyrm, the federated Goodreads alternative</div>
+                        </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">LAN Server Auto-Discovery</div>
+                            <div class="item-desc">Find servers on your local network automatically</div>
+                        </div>
+                    </div>
+                    <div class="roadmap-column">
+                        <h3><span class="status-dot planned"></span> Future / Exploring</h3>
+                        <div class="roadmap-item">
+                            <div class="item-title">Apple TV Companion App</div>
+                            <div class="item-desc">Alexandria on the big screen</div>
+                        </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Read-Along Evolution</div>
+                            <div class="item-desc">The next generation of the read-along experience</div>
                         </div>
                     </div>
                 </div>
@@ -1025,7 +1101,7 @@
                         <h3><span class="status-dot in-progress"></span> Known Issues</h3>
                         <div class="bug-item">
                             <div class="bug-title">
-                                BookLore interrupted downloads
+                                Grimmory (formerly BookLore) interrupted downloads
                                 <span class="bug-status investigating">Investigating</span>
                             </div>
                             <div class="bug-desc">Interrupted downloads can interfere with opening the downloaded book.</div>
@@ -1054,6 +1130,20 @@
                 <div class="bugs-fixed" style="margin-top: 32px;">
                     <div class="bugs-list">
                         <h3><span class="status-dot completed"></span> Recently Fixed</h3>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Batch Downloads
+                                <span class="bug-status fixed">Shipped</span>
+                            </div>
+                            <div class="bug-desc">Shipped in v3.0 as Download Series — one tap queues an entire series for download.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Jellyfin Chromecast Casting
+                                <span class="bug-status fixed">Shipped</span>
+                            </div>
+                            <div class="bug-desc">Chromecast casting landed as part of the complete Jellyfin music experience in v3.0.</div>
+                        </div>
                         <div class="bug-item">
                             <div class="bug-title">
                                 Extended OIDC Support

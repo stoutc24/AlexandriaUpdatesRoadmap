@@ -747,6 +747,15 @@
                 </div>
                 <div class="v2-grid">
                     <div class="v2-card">
+                        <h3>Two New Services</h3>
+                        <ul>
+                            <li>Navidrome — and Gonic, Airsonic and other Subsonic-API servers</li>
+                            <li>Artists, albums, playlists, favorites, search and offline downloads</li>
+                            <li>Custom OPDS — COPS, Stump, Ubooquity, Calibre-Web OPDS and any OPDS 1.2 feed</li>
+                            <li>Browse, search, per-format downloads, and reading in the built-in readers</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
                         <h3>Jellyfin, Complete</h3>
                         <ul>
                             <li>Full music experience: playlists, music-style home, artist pages</li>
@@ -837,6 +846,16 @@
                         <div class="icon">&#x1f4f0;</div>
                         <div class="name">Komga</div>
                     </div>
+                    <div class="service-card">
+                        <div class="icon">&#x1f3b5;</div>
+                        <div class="name">Navidrome</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Subsonic-compatible music servers</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">&#x1f4e1;</div>
+                        <div class="name">Custom OPDS</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Any standard OPDS catalog</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -845,6 +864,36 @@
             <div class="container">
                 <h2 class="section-title">Features</h2>
                 <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Navidrome</h3>
+                        <p>Connect to Navidrome — and to Gonic, Airsonic and other Subsonic-API servers. A full music experience: artists, albums, playlists, favorites, search, and offline downloads.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Custom OPDS</h3>
+                        <p>One integration for any standard OPDS catalog — COPS, Stump, Ubooquity, Calibre-Web OPDS, and any OPDS 1.2 feed. Browse, search, download the format you want, and read it in Alexandria's EPUB, PDF, and comic readers.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Cross-Service Queue in the Car</h3>
+                        <p>Your mixed Plex, Jellyfin, and Navidrome queue is now browsable in CarPlay and Android Auto. See the live queue with source labels, jump to any track, and resume where you left off.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Jellyfin &amp; Navidrome on Wear OS</h3>
+                        <p>Browse and play from your watch, with offline downloads and playback that continues when the screen turns off.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Smarter Statistics</h3>
+                        <p>Music and video are now tracked as their own categories — no more music inflating your audiobook hours — with per-source breakdowns and video watching counted for the first time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v3">v3.0</span>
+                        <h3>Server-First Recommendations</h3>
+                        <p>Similar-artist suggestions now come from your own server first, with the online lookup only as a fallback.</p>
+                    </div>
                     <div class="feature-card">
                         <span class="badge badge-v3">v3.0</span>
                         <h3>Jellyfin Video</h3>
@@ -1046,20 +1095,20 @@
                             <div class="item-title">Jellyfin Video Downloads</div>
                             <div class="item-desc">Offline video — take your movies and shows with you</div>
                         </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Offline Search for the Newest Services</div>
+                            <div class="item-desc">Bringing the offline search index to the most recently added services</div>
+                        </div>
+                        <div class="roadmap-item">
+                            <div class="item-title">Background Playback Polish on Wear OS</div>
+                            <div class="item-desc">Further refinement of screen-off and background playback on the watch</div>
+                        </div>
                     </div>
                     <div class="roadmap-column">
                         <h3><span class="status-dot planned"></span> Planned</h3>
                         <div class="roadmap-item">
-                            <div class="item-title">Generic OPDS Server Support</div>
-                            <div class="item-desc">COPS, Ubooquity, and any standard OPDS feed</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Navidrome / Subsonic</div>
-                            <div class="item-desc">Support for Navidrome and Subsonic-compatible music servers</div>
-                        </div>
-                        <div class="roadmap-item">
                             <div class="item-title">Stump</div>
-                            <div class="item-desc">Support for the Stump comic server</div>
+                            <div class="item-desc">Reachable today through the new Custom OPDS support — a native Stump client is still planned</div>
                         </div>
                         <div class="roadmap-item">
                             <div class="item-title">BookWyrm Reading Sync</div>
@@ -1130,6 +1179,20 @@
                 <div class="bugs-fixed" style="margin-top: 32px;">
                     <div class="bugs-list">
                         <h3><span class="status-dot completed"></span> Recently Fixed</h3>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Navidrome / Subsonic Music Servers
+                                <span class="bug-status fixed">Shipped</span>
+                            </div>
+                            <div class="bug-desc">Off the roadmap and into the app — Navidrome, plus Gonic, Airsonic and other Subsonic-API servers, with artists, albums, playlists, favorites, search and offline downloads.</div>
+                        </div>
+                        <div class="bug-item">
+                            <div class="bug-title">
+                                Generic OPDS Server Support
+                                <span class="bug-status fixed">Shipped</span>
+                            </div>
+                            <div class="bug-desc">Shipped as Custom OPDS — one integration covering COPS, Stump, Ubooquity, Calibre-Web OPDS and any OPDS 1.2 feed.</div>
+                        </div>
                         <div class="bug-item">
                             <div class="bug-title">
                                 Batch Downloads

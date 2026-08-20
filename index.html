@@ -365,6 +365,47 @@
             color: #a78bfa;
         }
 
+        /* Pricing tiers */
+        .tier-card.premium {
+            border-color: rgba(234, 179, 8, 0.35);
+        }
+
+        .tier-name {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .tier-card.premium .tier-name {
+            color: var(--yellow);
+        }
+
+        .tier-price {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .tier-note {
+            max-width: 760px;
+            margin: 28px auto 0;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(26, 26, 26, 0.6);
+            font-size: 14px;
+            color: var(--text-muted);
+            text-align: center;
+            position: relative;
+        }
+
+        .tier-note strong {
+            color: var(--text);
+        }
+
         .feature-card h3 {
             font-size: 18px;
             margin-bottom: 8px;
@@ -714,6 +755,7 @@
             <a href="/" class="logo"><img src="images/app-icon.png" alt="Alexandria" style="height: 32px; width: 32px; border-radius: 6px; margin-right: 10px; vertical-align: middle;">Alexandria</a>
             <nav class="nav-links">
                 <a href="#v2">What's New</a>
+                <a href="#pricing">Pricing</a>
                 <a href="#features">Features</a>
                 <a href="#gallery">Screenshots</a>
                 <a href="#roadmap">Roadmap</a>
@@ -844,6 +886,50 @@
                             <li>Background playback no longer stops when you leave the app</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Standard vs Premium -->
+        <section class="v2-banner" id="pricing">
+            <div class="container">
+                <div class="v2-header">
+                    <div class="v2-label">Standard &amp; Premium</div>
+                    <h2>What you get</h2>
+                    <p>Alexandria is free with two services. Premium lifts the limit and unlocks the features that tie your servers together.</p>
+                </div>
+                <div class="v2-grid">
+                    <div class="v2-card tier-card">
+                        <div class="tier-name">Standard</div>
+                        <div class="tier-price">Free</div>
+                        <ul>
+                            <li>Two services, swappable once a month</li>
+                            <li>Every kind of media those services hold — audiobooks, ebooks, comics, music and video</li>
+                            <li>Offline downloads and background playback</li>
+                            <li>All built-in readers — EPUB, PDF and comics</li>
+                            <li>Read-Along, the follow-as-you-listen teleprompter</li>
+                            <li>Queues of any length within a single service, with shuffle and reordering</li>
+                            <li>CarPlay and Android Auto</li>
+                            <li>Chromecast and AirPlay</li>
+                            <li>Statistics, goals and reading plans</li>
+                            <li>Sleep timer, synced lyrics, and search across both services</li>
+                            <li>Bug reports — always free, always read</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card tier-card premium">
+                        <div class="tier-name">Premium</div>
+                        <div class="tier-price">Monthly, or pay once for lifetime</div>
+                        <ul>
+                            <li>Every service, no limit — connect as many as you run</li>
+                            <li>The cross-service queue: mix Plex, Jellyfin and Navidrome in one queue and play straight through it</li>
+                            <li>That same mixed queue in CarPlay and Android Auto</li>
+                            <li>Apple Watch and Wear OS, with all your services on your wrist</li>
+                            <li>Priority support, answered first</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tier-note">
+                    <strong>Everything is unlocked during the v3.0.0 launch.</strong> The Premium tier arrives in v3.0.1, shortly afterwards, along with annual pricing — a cheaper way to subscribe than paying monthly. Nothing you have downloaded ever stops being yours, and playback of a single service is never limited.
                 </div>
             </div>
         </section>

@@ -847,25 +847,52 @@
                 <div class="v2-header">
                     <div class="v2-label">Coming Next</div>
                     <h2>Version 3.1.0</h2>
-                    <p>Two more services, the cross-service queue in your car and on your wrist, and the stats that were quietly getting it wrong.</p>
+                    <p>Three more services, recommendations built from your own library, music that keeps playing, and a Read-Along that lines itself up.</p>
                 </div>
                 <div class="v2-grid">
                     <div class="v2-card">
-                        <h3>Two New Services</h3>
+                        <h3>Three New Services</h3>
                         <ul>
                             <li>Navidrome — and Gonic, Airsonic and other Subsonic-API servers</li>
-                            <li>Artists, albums, playlists, favorites, search and offline downloads</li>
-                            <li>Custom OPDS — COPS, Stump, Ubooquity, Calibre-Web OPDS and any OPDS 1.2 feed</li>
-                            <li>Browse, search, per-format downloads, and reading in the built-in readers</li>
+                            <li>Custom OPDS — COPS, Ubooquity, Calibre-Web OPDS and any OPDS 1.2 or 2.0 catalog</li>
+                            <li>Stump, as a full integration — including reading position synced back to the server</li>
+                            <li>Each one wired through the whole app: home, queue, car, watch, statistics and search</li>
                         </ul>
                     </div>
                     <div class="v2-card">
-                        <h3>Your Queue, Everywhere</h3>
+                        <h3>Discover — Made From Your Own Library</h3>
                         <ul>
-                            <li>The cross-service queue now shows up in CarPlay and Android Auto</li>
-                            <li>Mix Plex, Jellyfin and Navidrome in one queue and drive off with it</li>
-                            <li>Tap any row to jump — order, shuffle and repeat all survive</li>
-                            <li>Jellyfin and Navidrome on Wear OS, with playback that survives screen-off</li>
+                            <li>&ldquo;For You&rdquo; shelves on every service, built from what you actually play</li>
+                            <li>Every suggestion says why — &ldquo;Next in your series&rdquo;, &ldquo;Because you finished&hellip;&rdquo;</li>
+                            <li>Books, comics, music, film and television — not just the next book in a series</li>
+                            <li>Nothing leaves your devices; no third-party recommendation service</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
+                        <h3>Keep The Music Going</h3>
+                        <ul>
+                            <li>When an album ends, more of your library continues in the same vibe</li>
+                            <li>Chosen from the record that just finished and what you generally reach for</li>
+                            <li>Navidrome joins Plex and Jellyfin in CarPlay and Android Auto</li>
+                            <li>Offline downloads, All Songs and A-Z scrolling bring Navidrome level with Plex</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
+                        <h3>Read-Along That Lines Itself Up</h3>
+                        <ul>
+                            <li>Opens already in sync — it listens, finds the place in the book and sets itself</li>
+                            <li>Keeps correcting as you read, instead of holding one offset for a whole book</li>
+                            <li>Read-Along offered from the ebook side too, not only from the audiobook</li>
+                            <li>Page themes: Paper, Sepia, Slate, Night, Dusk and True Black</li>
+                        </ul>
+                    </div>
+                    <div class="v2-card">
+                        <h3>One Index Of Everything You Own</h3>
+                        <ul>
+                            <li>A single index across every service and every kind of media</li>
+                            <li>Link an audiobook to its ebook on any server — matched on title, series, volume and author</li>
+                            <li>Powers offline search, cross-service linking and recommendations from one place</li>
+                            <li>Rebuilds daily on Wi-Fi, and a service that fails says why</li>
                         </ul>
                     </div>
                     <div class="v2-card">
@@ -873,17 +900,8 @@
                         <ul>
                             <li>Music and video no longer inflate your audiobook hours</li>
                             <li>Books-completed stops double-counting</li>
-                            <li>Reading and listening that was never being recorded now is</li>
-                            <li>The stats card is available on every service, and hideable on each</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Music Polish</h3>
-                        <ul>
-                            <li>Synced lyrics overhaul — right song, right timing, no scrambling</li>
-                            <li>Bit-perfect lossless FLAC extends to Navidrome</li>
-                            <li>Similar-artist suggestions come from your own server first</li>
-                            <li>Background playback no longer stops when you leave the app</li>
+                            <li>Real server-side statistics, pulled where a server actually keeps them</li>
+                            <li>One stats page and one card, available on every service and hideable on each</li>
                         </ul>
                     </div>
                 </div>
@@ -1023,7 +1041,7 @@
                         <p>Music and video are now tracked as their own categories — no more music inflating your audiobook hours — with per-source breakdowns and video watching counted for the first time.</p>
                     </div>
                     <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
+                        <span class="badge badge-v3">v3.0</span>
                         <h3>Server-First Recommendations</h3>
                         <p>Similar-artist suggestions now come from your own server first, with the online lookup only as a fallback.</p>
                     </div>
@@ -1039,6 +1057,31 @@
                     </div>
                     <div class="feature-card">
                         <span class="badge badge-v31">v3.1.0</span>
+                        <h3>Stump</h3>
+                        <p>A full Stump integration, not just an OPDS URL — browse your libraries, read in Alexandria, and have your reading position synced back to the server.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v31">v3.1.0</span>
+                        <h3>Discover &mdash; For You</h3>
+                        <p>Recommendation shelves on every service home, built entirely from your own history against your own libraries. Every suggestion tells you why it is there, and it covers books, comics, music, film and television.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v31">v3.1.0</span>
+                        <h3>Keep The Music Going</h3>
+                        <p>When an album ends, more of your own library keeps playing in the same vibe — chosen from the record that just finished and the music you generally reach for.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v31">v3.1.0</span>
+                        <h3>Self-Syncing Read-Along</h3>
+                        <p>Read-Along opens already lined up: it listens to what is playing, finds the place in the book and sets the offset for you. It keeps correcting as you read, rather than holding one setting for a whole book.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v31">v3.1.0</span>
+                        <h3>One Media Index</h3>
+                        <p>A single index of everything you own, across every service and media type. It powers offline search, audiobook-to-ebook linking and recommendations from one place, and rebuilds itself daily on Wi-Fi.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v2">v2.0</span>
                         <h3>Synced Lyrics</h3>
                         <p>Time-synced lyrics for Plex and Jellyfin music, with an online fallback when your server doesn't provide them.</p>
                     </div>
@@ -1051,6 +1094,11 @@
                         <span class="badge badge-v3">v3.0</span>
                         <h3>Goodreads &amp; StoryGraph Import</h3>
                         <p>One-time CSV import brings over your reading history, ratings, and want-to-read list.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="badge badge-v31">v3.1.0</span>
+                        <h3>Cross-Service Ebook Linking</h3>
+                        <p>Pair an Audiobookshelf audiobook with its ebook on <em>any</em> of your servers — Grimmory, Calibre, Calibre-Web, Komga, OPDS or Stump — matched on title, series, volume and author rather than needing one exact key. Choose which service supplies the text.</p>
                     </div>
                     <div class="feature-card">
                         <span class="badge badge-v3">v3.0</span>

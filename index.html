@@ -1,1530 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexandria - Your Media, One App</title>
-    <meta name="description" content="Alexandria is a unified client for Audiobookshelf, Kavita, Plex, Jellyfin, and more. Available on iOS and Android.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --bg-dark: #0f0f0f;
-            --bg-card: #1a1a1a;
-            --text: #ffffff;
-            --text-muted: #a1a1aa;
-            --border: #27272a;
-            --green: #22c55e;
-            --yellow: #eab308;
-            --blue: #3b82f6;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-        }
-
-        /* Hero */
-        .hero {
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero .tagline {
-            font-size: 20px;
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-
-        .btn-secondary {
-            background: var(--bg-card);
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border);
-        }
-
-        /* v2.0.0 Banner */
-        .v2-banner {
-            padding: 80px 0 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .v2-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.06) 50%, rgba(59, 130, 246, 0.04) 100%);
-            pointer-events: none;
-        }
-
-        .v2-header {
-            text-align: center;
-            margin-bottom: 48px;
-            position: relative;
-        }
-
-        .v2-label {
-            display: inline-block;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            background: linear-gradient(135deg, var(--primary), #8b5cf6);
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .v2-header h2 {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #fff 0%, #c4b5fd 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .v2-header p {
-            font-size: 18px;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .v2-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            position: relative;
-        }
-
-        .v2-card {
-            background: rgba(26, 26, 26, 0.8);
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 16px;
-            padding: 32px;
-            backdrop-filter: blur(10px);
-        }
-
-        .v2-card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .v2-card-icon span {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 22px;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .v2-card-icon.ui { background: rgba(139, 92, 246, 0.15); }
-        .v2-card-icon.features { background: rgba(59, 130, 246, 0.15); }
-        .v2-card-icon.perf { background: rgba(34, 197, 94, 0.15); }
-        .v2-card-icon.security { background: rgba(234, 179, 8, 0.15); }
-
-        .v2-card {
-            text-align: center;
-        }
-
-        .v2-card h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .v2-card ul {
-            list-style: none;
-            padding: 0;
-            display: inline-block;
-            text-align: left;
-        }
-
-        .v2-card ul li {
-            font-size: 14px;
-            color: var(--text-muted);
-            padding: 6px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .v2-card ul li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 13px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary);
-            opacity: 0.6;
-        }
-
-        /* Services Grid */
-        .services {
-            padding: 60px 0;
-        }
-
-        .section-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-        }
-
-        .service-card .icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-        }
-
-        .service-card .name {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* Features */
-        .features {
-            padding: 60px 0;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-        }
-
-        .feature-card .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .badge-new {
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--green);
-        }
-
-        .badge-ios {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--blue);
-        }
-
-        .badge-android {
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--green);
-        }
-
-        .badge-v2 {
-            background: rgba(139, 92, 246, 0.2);
-            color: #a78bfa;
-        }
-
-        .badge-v3 {
-            background: rgba(34, 211, 238, 0.2);
-            color: #22d3ee;
-        }
-
-        .badge-v31 {
-            background: rgba(167, 139, 250, 0.2);
-            color: #a78bfa;
-        }
-
-        /* Pricing tiers */
-        .tier-card.premium {
-            border-color: rgba(234, 179, 8, 0.35);
-        }
-
-        .tier-name {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .tier-card.premium .tier-name {
-            color: var(--yellow);
-        }
-
-        .tier-price {
-            font-size: 15px;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-        }
-
-        .tier-note {
-            max-width: 760px;
-            margin: 28px auto 0;
-            padding: 16px 20px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: rgba(26, 26, 26, 0.6);
-            font-size: 14px;
-            color: var(--text-muted);
-            text-align: center;
-            position: relative;
-        }
-
-        .tier-note strong {
-            color: var(--text);
-        }
-
-        .feature-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* Roadmap */
-        .roadmap {
-            padding: 60px 0;
-        }
-
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .roadmap-column {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-        }
-
-        .roadmap-column h3 {
-            font-size: 16px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .status-dot.completed { background: var(--green); }
-        .status-dot.in-progress { background: var(--yellow); }
-        .status-dot.planned { background: var(--text-muted); }
-
-        .roadmap-item {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
-        }
-
-        .roadmap-item:last-child {
-            border-bottom: none;
-        }
-
-        .roadmap-item .item-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .roadmap-item .item-desc {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        /* Bug Reports */
-        .bugs {
-            padding: 60px 0;
-        }
-
-        .bugs-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-        }
-
-        @media (max-width: 768px) {
-            .bugs-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .bugs-report {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            text-align: center;
-        }
-
-        .bugs-report h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-        }
-
-        .bugs-report p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .bugs-list {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-        }
-
-        .bugs-list h3 {
-            font-size: 18px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .bug-item {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
-        }
-
-        .bug-item:last-child {
-            border-bottom: none;
-        }
-
-        .bug-item .bug-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .bug-item .bug-desc {
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
-        .bug-status {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .bug-status.investigating {
-            background: rgba(234, 179, 8, 0.2);
-            color: var(--yellow);
-        }
-
-        .bug-status.fixing {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--blue);
-        }
-
-        .bug-status.fixed {
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--green);
-        }
-
-        .bug-status.unconfirmed {
-            background: rgba(161, 161, 170, 0.2);
-            color: var(--text-muted);
-        }
-
-        .no-bugs {
-            color: var(--text-muted);
-            font-size: 14px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* Community */
-        .community {
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        .community p {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        footer a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: var(--text);
-        }
-
-        /* Gallery */
-        .gallery {
-            padding: 60px 0;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .gallery-item .caption {
-            padding: 12px;
-            font-size: 13px;
-            color: var(--text-muted);
-            text-align: center;
-        }
-
-        .gallery-placeholder {
-            background: var(--bg-card);
-            border: 2px dashed rgba(99, 102, 241, 0.3);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 280px;
-            color: var(--text-muted);
-            font-size: 14px;
-            gap: 8px;
-        }
-
-        .gallery-placeholder .placeholder-icon {
-            font-size: 32px;
-            opacity: 0.4;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .lightbox-close:hover {
-            opacity: 1;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .section-title {
-                font-size: 24px;
-            }
-
-            .v2-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .v2-header h2 {
-                font-size: 28px;
-            }
-
-            .roadmap-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexandria — Every server you run. One library.</title>
+  <meta name="description" content="Alexandria is the client for the media you already host: audiobooks, ebooks, comics, music, film and TV from Audiobookshelf, Plex, Jellyfin, Kavita, Komga, Calibre, Navidrome and more — on iPhone, Android, Apple TV, Watch and in the car.">
+  <meta property="og:title" content="Alexandria — Every server you run. One library.">
+  <meta property="og:description" content="One Home, one queue, one Now Playing for every media server you host. iPhone, Android, Apple TV, Apple Watch, Wear OS, CarPlay and Android Auto.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://stoutc24.github.io/AlexandriaUpdatesRoadmap/images/showcase/og.jpg">
+  <meta name="theme-color" content="#070b16">
+  <link rel="icon" type="image/png" href="images/app-icon.png">
+  <link rel="apple-touch-icon" href="images/app-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 <body>
-    <div style="background: #dc2626; color: white; text-align: center; padding: 12px 24px; font-size: 14px; font-weight: 600;">
-        We're working with Reddit to reestablish the Alexandria community. Stay tuned for updates on <a href="https://www.reddit.com/r/AlexandriaMediaLib2/" style="color: white; text-decoration: underline;" target="_blank">r/AlexandriaMediaLib2</a>.
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="images/app-icon.png" alt="" width="36" height="36">Alexandria</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#v310">What's New</a>
+      <a href="#features">Features</a>
+      <a href="#appletv">Apple TV</a>
+      <a href="#party">Party Play</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#bugs">Support</a>
+      <a href="#community">Community</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" href="https://apps.apple.com/us/app/alexandria-the-media-library/id6756271770">App Store</a>
+      <a class="btn btn-primary btn-sm" href="https://play.google.com/store/apps/details?id=com.alexandria.client">Google Play</a>
     </div>
-    <header>
-        <div class="container header-content">
-            <a href="/" class="logo"><img src="images/app-icon.png" alt="Alexandria" style="height: 32px; width: 32px; border-radius: 6px; margin-right: 10px; vertical-align: middle;">Alexandria</a>
-            <nav class="nav-links">
-                <a href="#v2">What's New</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#features">Features</a>
-                <a href="#gallery">Screenshots</a>
-                <a href="#roadmap">Roadmap</a>
-                <a href="#bugs">Bug Reports</a>
-                <a href="#features-request">Feature Requests</a>
-                <a href="#community">Community</a>
-            </nav>
+    <button class="menu-btn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">iPhone · Android · Apple TV · Watch · Car</p>
+      <h1>Every server you run.<br><span class="grad">One library.</span></h1>
+      <p class="lead">Alexandria is the client for the media you already host. Audiobooks, ebooks, comics, music, film and TV from Audiobookshelf, Plex, Jellyfin, Kavita, Komga, Calibre, Navidrome and more — one Home, one queue, one Now Playing, on every screen you own.</p>
+      <div class="cta-row">
+        <a class="store" href="https://apps.apple.com/us/app/alexandria-the-media-library/id6756271770">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.3.8 1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.8-1.1-2.9-4.3zM13.9 5.2c.7-.8 1.2-2 1-3.2-1 0-2.2.7-3 1.5-.6.7-1.2 1.9-1.1 3.1 1.2.1 2.3-.6 3.1-1.4z"/></svg>
+          <span><small>Download on the</small><b>App Store</b></span>
+        </a>
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.alexandria.client">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3 13 12l-9.4 9.7c-.4-.2-.6-.7-.6-1.2V3.5c0-.5.2-1 .6-1.2zm11.1 11.4 2.9 2.9-11 6.3 8.1-9.2zm0-3.4L6.6 1.1l11 6.3-2.9 2.9zm4.6 1.7c.7.4.7 1.6 0 2l-2.9 1.7-3.1-3.7 3.1-3.7 2.9 1.7z"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+        <a class="btn btn-ghost" href="#features">See it work ↓</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b><span data-count="12">12</span></b><span>media servers supported</span></div>
+        <div class="stat"><b><span data-count="7">7</span></b><span>platforms, one account</span></div>
+        <div class="stat"><b>0</b><span>cloud in between — it is your network</span></div>
+      </div>
+    </div>
+    <div class="hero-devices">
+      <div class="hero-tv" data-parallax="-0.04"><div class="tv float-a"><img src="images/showcase/tv-home.jpg" alt="Alexandria for Apple TV: the Home screen with a Continue hero and shelves from every server"></div></div>
+      <div class="hero-phone" data-parallax="0.03"><div class="phone float-b"><img src="images/showcase/phone-home.jpg" alt="Alexandria on a phone: the unified Home with a Continue row across servers"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES MARQUEE ============ -->
+<div class="marquee" aria-label="Supported servers">
+  <div class="marquee-track">
+    <span class="chip"><i></i>Audiobookshelf</span>
+    <span class="chip b"><i></i>Plex</span>
+    <span class="chip b"><i></i>Jellyfin</span>
+    <span class="chip g"><i></i>Kavita</span>
+    <span class="chip g"><i></i>Komga</span>
+    <span class="chip"><i></i>Calibre</span>
+    <span class="chip"><i></i>Calibre-Web</span>
+    <span class="chip g"><i></i>Grimmory</span>
+    <span class="chip"><i></i>Storyteller</span>
+    <span class="chip b"><i></i>Navidrome</span>
+    <span class="chip b"><i></i>Gonic · Airsonic · Subsonic</span>
+    <span class="chip g"><i></i>Stump</span>
+    <span class="chip"><i></i>Custom OPDS</span>
+  </div>
+</div>
+
+<!-- ============ WHAT'S NEW ============ -->
+<section id="v310" class="tight">
+  <div class="wrap">
+    <div class="release reveal">
+      <div class="head">
+        <span class="tag">Rolling out now</span>
+        <h2>Version 3.1.0</h2>
+        <p class="muted" style="margin:0">Party Play, Alexandria for Apple TV, three more services, and recommendations built from your own library.</p>
+      </div>
+      <div class="cards">
+        <div class="card copper reveal" data-delay="1"><div class="ic">🎉</div><h3>Party Play</h3><p>One clock for every room. Start a party from your phone and every Apple TV and speaker in the house lands on the same beat — scheduled starts, per-device sync, leader handover.</p></div>
+        <div class="card reveal" data-delay="2"><div class="ic">📺</div><h3>Alexandria for Apple TV</h3><p>A real tvOS app: profiles with PINs, a sidebar built for the remote, films and TV with scrub previews, music, audiobooks, and the same servers as your phone.</p></div>
+        <div class="card reveal" data-delay="3"><div class="ic">🔌</div><h3>Three new services</h3><p>Navidrome (and Gonic, Airsonic and other Subsonic servers), Custom OPDS for any 1.2 or 2.0 catalog, and Stump as a full integration with reading position synced back.</p></div>
+        <div class="card reveal" data-delay="1"><div class="ic">✨</div><h3>Discover — For You</h3><p>Shelves on every service built from what you actually play. Every suggestion says why. Nothing leaves your devices.</p></div>
+        <div class="card reveal" data-delay="2"><div class="ic">📻</div><h3>Radio from your own library</h3><p>Eagles Radio, Rock Radio, 1970s Radio — stations made from the music on your servers. Endless, and it behaves like radio, not shuffle.</p></div>
+        <div class="card reveal" data-delay="3"><div class="ic">📖</div><h3>Read-Along that lines itself up</h3><p>Opens already in sync — it listens, finds the place in the book and sets itself. Keeps correcting as you read. Paper, Sepia and Slate themes.</p></div>
+      </div>
+    </div>
+    <div id="v2" class="reveal" style="margin-top:22px">
+      <details class="more">
+        <summary>What arrived in Version 3.0.0</summary>
+        <div class="cards" style="margin-top:16px">
+          <div class="card"><h3>Jellyfin, complete</h3><p>Playlists, a music-style home, artist pages, quality selector, Chromecast, CarPlay and Android Auto — and Jellyfin Video with collections, Continue Watching, resume, subtitles and audio tracks.</p></div>
+          <div class="card"><h3>Grimmory</h3><p>BookLore has been succeeded by Grimmory, and Alexandria fully supports it. Existing BookLore connections keep working unchanged.</p></div>
+          <div class="card"><h3>True hi-res audio</h3><p>Bit-perfect lossless FLAC streaming for Plex and Jellyfin, full 24-bit support, powered by the mpv audio engine.</p></div>
+          <div class="card"><h3>Offline, for real</h3><p>Every Downloads section redesigned: series-grouped grids, cover art and summaries with zero network. Offline no longer dead-ends on error screens.</p></div>
+          <div class="card"><h3>Your whole library</h3><p>Hidden list caps removed across every service — huge Komga series, 500+ item Jellyfin and Calibre libraries, every Kavita reading list.</p></div>
         </div>
-    </header>
+      </details>
+    </div>
+  </div>
+</section>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Your Media, One App</h1>
-                <p class="tagline">A unified client for Audiobookshelf, Kavita, Plex, Jellyfin, and more. Connect to multiple servers and enjoy all your audiobooks, ebooks, and media in one beautiful app.</p>
-                <div class="hero-buttons">
-                    <a href="https://apps.apple.com/us/app/alexandria-the-media-library/id6756271770" class="btn btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                        App Store
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=com.alexandria.client" class="btn btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-                        Google Play
-                    </a>
-                </div>
-            </div>
-        </section>
+<!-- ============ FEATURES ============ -->
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">What it does</p>
+      <h2>Built for people who host their own.</h2>
+      <p class="lead">Each server keeps its own strengths. Alexandria puts them on one screen, remembers where you were everywhere, and plays it back the way the format deserves.</p>
+    </div>
 
-        <!-- v3.0.0 Banner -->
-        <section class="v2-banner" id="v2">
-            <div class="container">
-                <div class="v2-header">
-                    <div class="v2-label">Rolling Out Now</div>
-                    <h2>Version 3.0.0</h2>
-                    <p>The biggest release yet. Jellyfin goes end-to-end with music and video, Grimmory joins the family, hi-res audio goes bit-perfect, and offline finally works the way it should.</p>
-                </div>
-                <div class="v2-grid">
-                    <div class="v2-card">
-                        <h3>Jellyfin, Complete</h3>
-                        <ul>
-                            <li>Full music experience: playlists, music-style home, artist pages</li>
-                            <li>Quality selector, Chromecast, CarPlay &amp; Android Auto</li>
-                            <li>Brand-new Jellyfin Video: movies &amp; TV browsing with collections</li>
-                            <li>Continue Watching and playback with resume</li>
-                            <li>Subtitle &amp; audio track selection, sleep timer</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Grimmory Support</h3>
-                        <ul>
-                            <li>BookLore has been succeeded by Grimmory</li>
-                            <li>Alexandria fully supports Grimmory</li>
-                            <li>Existing BookLore connections keep working unchanged</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>True Hi-Res Audio</h3>
-                        <ul>
-                            <li>Bit-perfect lossless FLAC streaming for Plex and Jellyfin</li>
-                            <li>Full 24-bit hi-res support</li>
-                            <li>Powered by the mpv audio engine</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Offline, For Real</h3>
-                        <ul>
-                            <li>Every service's Downloads section redesigned</li>
-                            <li>Series-grouped grids, cover art, and summaries — all offline</li>
-                            <li>Downloaded books, comics, and music open with zero network</li>
-                            <li>Offline no longer dead-ends on error screens</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Your Whole Library</h3>
-                        <ul>
-                            <li>Hidden list caps removed across every service</li>
-                            <li>Huge Komga series and 500+ item Jellyfin and Calibre libraries</li>
-                            <li>Kavita reading lists and collections show everything</li>
-                            <li>ABS Continue Listening shows everything</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- v3.1.0 Banner -->
-        <section class="v2-banner" id="v310">
-            <div class="container">
-                <div class="v2-header">
-                    <div class="v2-label">Coming Next</div>
-                    <h2>Version 3.1.0</h2>
-                    <p>Three more services, recommendations built from your own library, music that keeps playing, and a Read-Along that lines itself up.</p>
-                </div>
-                <div class="v2-grid">
-                    <div class="v2-card">
-                        <h3>Three New Services</h3>
-                        <ul>
-                            <li>Navidrome — and Gonic, Airsonic and other Subsonic-API servers</li>
-                            <li>Custom OPDS — COPS, Ubooquity, Calibre-Web OPDS and any OPDS 1.2 or 2.0 catalog</li>
-                            <li>Stump, as a full integration — including reading position synced back to the server</li>
-                            <li>Each one wired through the whole app: home, queue, car, watch, statistics and search</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Discover — Made From Your Own Library</h3>
-                        <ul>
-                            <li>&ldquo;For You&rdquo; shelves on every service, built from what you actually play</li>
-                            <li>Every suggestion says why — &ldquo;Next in your series&rdquo;, &ldquo;Because you finished&hellip;&rdquo;</li>
-                            <li>Books, comics, music, film and television — not just the next book in a series</li>
-                            <li>Nothing leaves your devices; no third-party recommendation service</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Radio From Your Own Library</h3>
-                        <ul>
-                            <li>Stations built from the music on your own servers &mdash; Eagles Radio, Rock Radio, 1970s Radio</li>
-                            <li>Endless: a station keeps going, and reshuffles when it has played everything similar</li>
-                            <li>Behaves like radio, not shuffle &mdash; the artist you picked appears throughout, and never twice in a row</li>
-                            <li>Premium spans every music service at once; free stays on the one you started from</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Keep The Music Going</h3>
-                        <ul>
-                            <li>When an album ends, more of your library continues in the same vibe</li>
-                            <li>Chosen from the record that just finished and what you generally reach for</li>
-                            <li>Navidrome joins Plex and Jellyfin in CarPlay and Android Auto</li>
-                            <li>Offline downloads, All Songs and A-Z scrolling bring Navidrome level with Plex</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Read-Along That Lines Itself Up</h3>
-                        <ul>
-                            <li>Opens already in sync — it listens, finds the place in the book and sets itself</li>
-                            <li>Keeps correcting as you read, instead of holding one offset for a whole book</li>
-                            <li>Read-Along offered from the ebook side too, not only from the audiobook</li>
-                            <li>Page themes: Paper, Sepia, Slate, Night, Dusk and True Black</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>One Index Of Everything You Own</h3>
-                        <ul>
-                            <li>A single index across every service and every kind of media</li>
-                            <li>Link an audiobook to its ebook on any server — matched on title, series, volume and author</li>
-                            <li>Powers offline search, cross-service linking and recommendations from one place</li>
-                            <li>Rebuilds daily on Wi-Fi, and a service that fails says why</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card">
-                        <h3>Statistics You Can Trust</h3>
-                        <ul>
-                            <li>Music and video no longer inflate your audiobook hours</li>
-                            <li>Books-completed stops double-counting</li>
-                            <li>Real server-side statistics, pulled where a server actually keeps them</li>
-                            <li>One stats page and one card, available on every service and hideable on each</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Standard vs Premium -->
-        <section class="v2-banner" id="pricing">
-            <div class="container">
-                <div class="v2-header">
-                    <div class="v2-label">Standard &amp; Premium</div>
-                    <h2>What you get</h2>
-                    <p>Alexandria is free with two services. Premium lifts the limit and unlocks the features that tie your servers together.</p>
-                </div>
-                <div class="v2-grid">
-                    <div class="v2-card tier-card">
-                        <div class="tier-name">Standard</div>
-                        <div class="tier-price">Free</div>
-                        <ul>
-                            <li>Two services, swappable once a month</li>
-                            <li>Up to three server connections for each of those services</li>
-                            <li>Every kind of media those services hold — audiobooks, ebooks, comics, music and video</li>
-                            <li>Offline downloads and background playback</li>
-                            <li>All built-in readers — EPUB, PDF and comics</li>
-                            <li>Read-Along, the follow-as-you-listen teleprompter</li>
-                            <li>Queues of any length within a single service, with shuffle and reordering</li>
-                            <li>CarPlay and Android Auto</li>
-                            <li>Chromecast and AirPlay</li>
-                            <li>Statistics, goals and reading plans</li>
-                            <li>Sleep timer, synced lyrics, and search across both services</li>
-                            <li>Bug reports — always free, always read</li>
-                        </ul>
-                    </div>
-                    <div class="v2-card tier-card premium">
-                        <div class="tier-name">Premium</div>
-                        <div class="tier-price">Monthly, or pay once for lifetime</div>
-                        <ul>
-                            <li>Every service, no limit — connect as many as you run</li>
-                            <li>Unlimited connections per service — run three Plex servers and two Audiobookshelf instances if that is your setup</li>
-                            <li>The cross-service queue: mix Plex, Jellyfin and Navidrome in one queue and play straight through it</li>
-                            <li>That same mixed queue in CarPlay and Android Auto</li>
-                            <li>Radio stations that draw on every music service at once, not just one</li>
-                            <li>Apple Watch and Wear OS, with all your services on your wrist</li>
-                            <li>Priority support, answered first</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="tier-note">
-                    <strong>Everything is unlocked during the v3.0.0 launch.</strong> The Premium tier arrives in v3.1.0, shortly afterwards, along with annual pricing — a cheaper way to subscribe than paying monthly. Nothing you have downloaded ever stops being yours, and playback of a single service is never limited.
-                </div>
-            </div>
-        </section>
-
-        <section class="services">
-            <div class="container">
-                <h2 class="section-title">Supported Services</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="icon">&#x1f3a7;</div>
-                        <div class="name">Audiobookshelf</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f4da;</div>
-                        <div class="name">Kavita</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f3ac;</div>
-                        <div class="name">Plex</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Music, audiobooks &amp; video</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f4fa;</div>
-                        <div class="name">Jellyfin</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Music, audiobooks &amp; video</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f4d6;</div>
-                        <div class="name">Grimmory</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Formerly BookLore</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f4d5;</div>
-                        <div class="name">Calibre</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f310;</div>
-                        <div class="name">Calibre-Web</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f4d7;</div>
-                        <div class="name">Storyteller</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f4f0;</div>
-                        <div class="name">Komga</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f3b5;</div>
-                        <div class="name">Navidrome</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Subsonic-compatible music servers</div>
-                    </div>
-                    <div class="service-card">
-                        <div class="icon">&#x1f4e1;</div>
-                        <div class="name">Custom OPDS</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Any standard OPDS catalog</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="features" id="features">
-            <div class="container">
-                <h2 class="section-title">Features</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Navidrome</h3>
-                        <p>Connect to Navidrome — and to Gonic, Airsonic and other Subsonic-API servers. A full music experience: artists, albums, playlists, favorites, search, and offline downloads.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Custom OPDS</h3>
-                        <p>One integration for any standard OPDS catalog — COPS, Stump, Ubooquity, Calibre-Web OPDS, and any OPDS 1.2 feed. Browse, search, download the format you want, and read it in Alexandria's EPUB, PDF, and comic readers.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Cross-Service Queue in the Car</h3>
-                        <p>Your mixed Plex, Jellyfin, and Navidrome queue is now browsable in CarPlay and Android Auto. See the live queue with source labels, jump to any track, and resume where you left off.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Jellyfin &amp; Navidrome on Wear OS</h3>
-                        <p>Browse and play from your watch, with offline downloads and playback that continues when the screen turns off.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Smarter Statistics</h3>
-                        <p>Music and video are now tracked as their own categories — no more music inflating your audiobook hours — with per-source breakdowns and video watching counted for the first time.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Server-First Recommendations</h3>
-                        <p>Similar-artist suggestions now come from your own server first, with the online lookup only as a fallback.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Jellyfin Video</h3>
-                        <p>Browse movies &amp; TV with collections and Continue Watching. Playback with resume, subtitle and audio track selection, and a sleep timer.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Grimmory</h3>
-                        <p>BookLore has been succeeded by Grimmory, and Alexandria fully supports it. Existing BookLore connections keep working unchanged.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Stump</h3>
-                        <p>A full Stump integration, not just an OPDS URL — browse your libraries, read in Alexandria, and have your reading position synced back to the server.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Discover &mdash; For You</h3>
-                        <p>Recommendation shelves on every service home, built entirely from your own history against your own libraries. Every suggestion tells you why it is there, and it covers books, comics, music, film and television.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Radio Stations</h3>
-                        <p>Stations built entirely from your own library &mdash; by artist, genre or decade. They run endlessly, keep the artist you picked present without turning into a discography, and never play the same artist twice in a row. Premium draws on every music service at once.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Keep The Music Going</h3>
-                        <p>When an album ends, more of your own library keeps playing in the same vibe — chosen from the record that just finished and the music you generally reach for.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Self-Syncing Read-Along</h3>
-                        <p>Read-Along opens already lined up: it listens to what is playing, finds the place in the book and sets the offset for you. It keeps correcting as you read, rather than holding one setting for a whole book.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>One Media Index</h3>
-                        <p>A single index of everything you own, across every service and media type. It powers offline search, audiobook-to-ebook linking and recommendations from one place, and rebuilds itself daily on Wi-Fi.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Synced Lyrics</h3>
-                        <p>Time-synced lyrics for Plex and Jellyfin music, with an online fallback when your server doesn't provide them.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Music Recommendations &amp; History</h3>
-                        <p>Last.fm-powered music recommendations plus a listening history for your music.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Goodreads &amp; StoryGraph Import</h3>
-                        <p>One-time CSV import brings over your reading history, ratings, and want-to-read list.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v31">v3.1.0</span>
-                        <h3>Cross-Service Ebook Linking</h3>
-                        <p>Pair an Audiobookshelf audiobook with its ebook on <em>any</em> of your servers — Grimmory, Calibre, Calibre-Web, Komga, OPDS or Stump — matched on title, series, volume and author rather than needing one exact key. Choose which service supplies the text.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Audiobook &harr; Ebook Linking</h3>
-                        <p>Pair ABS audiobooks with their ebooks and Storyteller editions — and resume your place across formats.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Download Series</h3>
-                        <p>One tap queues an entire series for download.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Accurate VBR MP3 Seeking</h3>
-                        <p>Seeking in variable-bitrate MP3s now lands exactly where you expect.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v3">v3.0</span>
-                        <h3>Faster Cold Starts</h3>
-                        <p>Cache-first home screens get you into your library faster on launch.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Chromecast Support</h3>
-                        <p>Cast audiobooks to any Chromecast device with full playback controls, chapter navigation, and cover art display.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Apple Watch App</h3>
-                        <p>Control playback, browse your library, and see cover art directly from your wrist with the companion Watch app.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-ios">iOS</span>
-                        <h3>CarPlay</h3>
-                        <p>Browse and play audiobooks hands-free while driving with full CarPlay integration across all services.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-android">Android</span>
-                        <h3>Android Auto</h3>
-                        <p>Seamless audiobook browsing and playback in your car with fast startup and seek optimization.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Unified Library</h3>
-                        <p>See all your content from every connected service in one unified view. Filter, sort, and search across everything.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Offline Downloads</h3>
-                        <p>Download audiobooks, ebooks, comics, and music from any service. Redesigned in v3.0 with series-grouped grids, cover art, and summaries — downloads open with zero network.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Global Search</h3>
-                        <p>Search across all connected servers at once. Works offline too with a local SQLite search index.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Smart Collections</h3>
-                        <p>Customize your home screen with manageable, reorderable sections. Show exactly what matters to you.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Session Management</h3>
-                        <p>View and close open ABS listening sessions directly from the app. Automatic session cleanup prevents orphaned entries.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Multi-Server</h3>
-                        <p>Connect to multiple servers per service. Switch between home and work servers instantly.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Reading Plans &amp; Reminders</h3>
-                        <p>Build reading plans with target dates, drag-to-reorder books, per-book pacing (hours per day to finish on time) and link multiple alarm-style reminders that open the right plan when tapped.</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="badge badge-v2">v2.0</span>
-                        <h3>Upcoming Releases</h3>
-                        <p>Discover real pre-order dates for your favorite authors and genres. Three sections — Releasing Soon, Discover, and Recently Released — with optional new-release notifications.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="gallery" id="gallery">
-            <div class="container">
-                <h2 class="section-title">Screenshots</h2>
-                <h3 style="text-align: center; color: var(--text-muted); font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px;">v2.0</h3>
-                <div class="gallery-grid">
-                    <div class="gallery-item" onclick="openLightbox('images/v2-unified-library.png')">
-                        <img src="images/v2-unified-library.png" alt="Unified Library">
-                        <div class="caption">Unified Library</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/v2-smart-collections.png')">
-                        <img src="images/v2-smart-collections.png" alt="Smart Collections">
-                        <div class="caption">Smart Collections</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/v2-home.png')">
-                        <img src="images/v2-home.png" alt="Home Screen">
-                        <div class="caption">Home Screen</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/v2-navigation.png')">
-                        <img src="images/v2-navigation.png" alt="Navigation">
-                        <div class="caption">Navigation & Services</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/v2-now-playing.png')">
-                        <img src="images/v2-now-playing.png" alt="Now Playing">
-                        <div class="caption">Now Playing</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/v2-series-queue.png')">
-                        <img src="images/v2-series-queue.png" alt="Series Queue">
-                        <div class="caption">Series Queue</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/v2-goals-stats.png')">
-                        <img src="images/v2-goals-stats.png" alt="Goals & Stats">
-                        <div class="caption">Goals & Stats</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/v2-listening-stats.png')">
-                        <img src="images/v2-listening-stats.png" alt="Listening Stats">
-                        <div class="caption">Listening Stats</div>
-                    </div>
-                </div>
-                <h3 style="text-align: center; color: var(--text-muted); font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 48px; margin-bottom: 24px;">v1.0</h3>
-                <div class="gallery-grid">
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-home.png')">
-                        <img src="images/screenshot-home.png" alt="Home Screen">
-                        <div class="caption">Home Screen</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-discover.png')">
-                        <img src="images/screenshot-discover.png" alt="Discover">
-                        <div class="caption">Discover</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-series.png')">
-                        <img src="images/screenshot-series.png" alt="Series">
-                        <div class="caption">Series</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-kavita.png')">
-                        <img src="images/screenshot-kavita.png" alt="Kavita">
-                        <div class="caption">Kavita</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-komga.png')">
-                        <img src="images/screenshot-komga.png" alt="Komga">
-                        <div class="caption">Komga</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-storyteller.png')">
-                        <img src="images/screenshot-storyteller.png" alt="Storyteller">
-                        <div class="caption">Storyteller</div>
-                    </div>
-                    <div class="gallery-item" onclick="openLightbox('images/screenshot-switch-service.png')">
-                        <img src="images/screenshot-switch-service.png" alt="Switch Service">
-                        <div class="caption">Switch Service</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Lightbox -->
-        <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-            <span class="lightbox-close">&times;</span>
-            <img id="lightbox-img" src="" alt="Screenshot">
+    <div class="features">
+      <div class="feature">
+        <div class="copy reveal">
+          <span class="tag blue">Home</span>
+          <h3 style="font-size:1.8rem">One Home for everything</h3>
+          <p class="muted">A Continue row that mixes the audiobook you fell asleep to, the album you were on and the episode you paused — whichever server they live on. Flip to a single server with the pill, or keep it all together.</p>
+          <ul>
+            <li>Continue, For You, new arrivals and unfinished series across every connection</li>
+            <li>Streaks, goals and short listens that fit the time you have</li>
+            <li>Hold the server pill to jump to the next server; tap it to pick</li>
+            <li>Home, Library, Search and You — four tabs, under your thumb</li>
+          </ul>
         </div>
-
-        <section class="roadmap" id="roadmap">
-            <div class="container">
-                <h2 class="section-title">Roadmap</h2>
-                <div class="roadmap-grid">
-                    <div class="roadmap-column">
-                        <h3><span class="status-dot in-progress"></span> In Progress</h3>
-                        <div class="roadmap-item">
-                            <div class="item-title">Polish &amp; Performance for v3.0.x</div>
-                            <div class="item-desc">Bug fixes and refinements driven by community feedback</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Jellyfin Video Downloads</div>
-                            <div class="item-desc">Offline video — take your movies and shows with you</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Offline Search for the Newest Services</div>
-                            <div class="item-desc">Bringing the offline search index to the most recently added services</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Background Playback Polish on Wear OS</div>
-                            <div class="item-desc">Further refinement of screen-off and background playback on the watch</div>
-                        </div>
-                    </div>
-                    <div class="roadmap-column">
-                        <h3><span class="status-dot planned"></span> Planned</h3>
-                        <div class="roadmap-item">
-                            <div class="item-title">Stump</div>
-                            <div class="item-desc">Reachable today through the new Custom OPDS support — a native Stump client is still planned</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">BookWyrm Reading Sync</div>
-                            <div class="item-desc">Sync reading activity with BookWyrm, the federated Goodreads alternative</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">LAN Server Auto-Discovery</div>
-                            <div class="item-desc">Find servers on your local network automatically</div>
-                        </div>
-                    </div>
-                    <div class="roadmap-column">
-                        <h3><span class="status-dot planned"></span> Future / Exploring</h3>
-                        <div class="roadmap-item">
-                            <div class="item-title">Apple TV Companion App</div>
-                            <div class="item-desc">Alexandria on the big screen</div>
-                        </div>
-                        <div class="roadmap-item">
-                            <div class="item-title">Read-Along Evolution</div>
-                            <div class="item-desc">The next generation of the read-along experience</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bugs" id="bugs">
-            <div class="container">
-                <h2 class="section-title">Bug Reports</h2>
-                <div class="bugs-content">
-                    <div class="bugs-report">
-                        <h3>Found a Bug?</h3>
-                        <p>Help us improve Alexandria by reporting any issues you encounter. Please include your device model, OS version, and steps to reproduce the bug.</p>
-                        <a href="mailto:stoutservers@gmail.com?subject=Alexandria%20Bug%20Report&body=Device:%0AOS%20Version:%0AAlexandria%20Version:%0A%0ADescription:%0A%0ASteps%20to%20Reproduce:%0A1.%0A2.%0A3.%0A%0AExpected%20Behavior:%0A%0AActual%20Behavior:%0A" class="btn btn-primary">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14,12H10V10H14M14,16H10V14H14M20,8H17.19C16.74,7.22 16.12,6.55 15.37,6.04L17,4.41L15.59,3L13.42,5.17C12.96,5.06 12.49,5 12,5C11.51,5 11.04,5.06 10.59,5.17L8.41,3L7,4.41L8.62,6.04C7.88,6.55 7.26,7.22 6.81,8H4V10H6.09C6.04,10.33 6,10.66 6,11V12H4V14H6V15C6,15.34 6.04,15.67 6.09,16H4V18H6.81C7.85,19.79 9.78,21 12,21C14.22,21 16.15,19.79 17.19,18H20V16H17.91C17.96,15.67 18,15.34 18,15V14H20V12H18V11C18,10.66 17.96,10.33 17.91,10H20V8Z"/></svg>
-                            Report a Bug
-                        </a>
-                    </div>
-                    <div class="bugs-list">
-                        <h3><span class="status-dot in-progress"></span> Known Issues</h3>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Grimmory (formerly BookLore) interrupted downloads
-                                <span class="bug-status investigating">Investigating</span>
-                            </div>
-                            <div class="bug-desc">Interrupted downloads can interfere with opening the downloaded book.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Series number not showing in Calibre offline
-                                <span class="bug-status investigating">Investigating</span>
-                            </div>
-                            <div class="bug-desc">Series number metadata does not display when viewing Calibre books offline.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bugs-reported" style="margin-top: 32px;">
-                    <div class="bugs-list">
-                        <h3><span class="status-dot planned"></span> Reported Issues</h3>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                .cbz format limited to 50 pages
-                                <span class="bug-status unconfirmed">Unconfirmed</span>
-                            </div>
-                            <div class="bug-desc">Android: CBZ comics may only display up to 50 pages.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bugs-fixed" style="margin-top: 32px;">
-                    <div class="bugs-list">
-                        <h3><span class="status-dot completed"></span> Recently Fixed</h3>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Navidrome / Subsonic Music Servers
-                                <span class="bug-status fixed">Shipped</span>
-                            </div>
-                            <div class="bug-desc">Off the roadmap and into the app — Navidrome, plus Gonic, Airsonic and other Subsonic-API servers, with artists, albums, playlists, favorites, search and offline downloads.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Generic OPDS Server Support
-                                <span class="bug-status fixed">Shipped</span>
-                            </div>
-                            <div class="bug-desc">Shipped as Custom OPDS — one integration covering COPS, Stump, Ubooquity, Calibre-Web OPDS and any OPDS 1.2 feed.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Batch Downloads
-                                <span class="bug-status fixed">Shipped</span>
-                            </div>
-                            <div class="bug-desc">Shipped in v3.0 as Download Series — one tap queues an entire series for download.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Jellyfin Chromecast Casting
-                                <span class="bug-status fixed">Shipped</span>
-                            </div>
-                            <div class="bug-desc">Chromecast casting landed as part of the complete Jellyfin music experience in v3.0.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Extended OIDC Support
-                                <span class="bug-status fixed">Shipped</span>
-                            </div>
-                            <div class="bug-desc">OIDC authentication now supported across all compatible services, not just Audiobookshelf.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                ABS progress not syncing to server
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Lazy session creation ensures progress always syncs. Manual sync button now bypasses cooldown guards for immediate sync.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Orphaned ABS listening sessions
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Previous sessions are now closed before creating new ones. Eliminated ghost 30-second sessions from redundant session creation.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Play/Resume navigation delay
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Tapping play on hero cards now navigates to Now Playing immediately instead of waiting for media to fully load.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Bookmark double-delete required
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Bookmarks now delete on first tap by clearing the local cache immediately on successful server deletion.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Android splash screen font flash
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Quote text no longer re-renders with a different font when the themed app loads on Android.</div>
-                        </div>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Android Auto &amp; CarPlay
-                                <span class="bug-status fixed">Fixed</span>
-                            </div>
-                            <div class="bug-desc">Fixed in v2.0. Android Auto cold-launch, connection stability, and playback resume all working. CarPlay fully functional across all services.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="bugs" id="features-request">
-            <div class="container">
-                <h2 class="section-title">Feature Requests</h2>
-                <div class="bugs-content">
-                    <div class="bugs-report">
-                        <h3>Have an Idea?</h3>
-                        <p>Help shape the future of Alexandria! Share your feature ideas, suggestions for improvements, or integrations you'd like to see.</p>
-                        <a href="mailto:stoutservers@gmail.com?subject=Alexandria%20Feature%20Request&body=Feature%20Summary:%0A%0ADescription:%0A%0AUse%20Case:%0A%0AExpected%20Behavior:%0A%0AAdditional%20Notes:%0A" class="btn btn-primary">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,17V13H9L13,7V11H15L11,17Z"/></svg>
-                            Request a Feature
-                        </a>
-                    </div>
-                    <div class="bugs-list">
-                        <h3><span class="status-dot completed"></span> Popular Requests</h3>
-                        <div class="bug-item">
-                            <div class="bug-title">
-                                Sleep Timer Enhancements
-                                <span class="bug-status fixed">Implemented</span>
-                            </div>
-                            <div class="bug-desc">Sleep timer now works reliably when phone is locked by tracking audio position.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="community" id="community">
-            <div class="container">
-                <h2 class="section-title">Join the Community</h2>
-                <p>Get help, share feedback, and connect with other Alexandria users.</p>
-                <div class="hero-buttons">
-                    <a href="https://www.reddit.com/r/AlexandriaMediaLib2/" class="btn btn-primary" target="_blank">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
-                        Reddit Community
-                    </a>
-                    <a href="mailto:stoutservers@gmail.com?subject=Alexandria%20Feedback" class="btn btn-secondary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        Contact Us
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>Alexandria &copy; 2025 Stout Solutions. All rights reserved.</p>
-            <p style="margin-top: 8px;">
-                <a href="mailto:support@stoutsolutions.dev">Contact</a>
-            </p>
+        <div class="media reveal scale">
+          <div class="glow"></div>
+          <div class="duo">
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-home.jpg" alt="The unified Home"></div>
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-home-shelves.jpg" alt="Shelves further down the Home"></div>
+          </div>
         </div>
-    </footer>
+      </div>
 
-    <script>
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+      <div class="feature">
+        <div class="copy reveal">
+          <span class="tag">Audiobooks</span>
+          <h3 style="font-size:1.8rem">Audiobooks, done properly</h3>
+          <p class="muted">Chapters, bookmarks, a sleep timer that works with the phone locked, speed, and progress that syncs back to Audiobookshelf the moment you pause. The lock screen, CarPlay and your watch all show the same book.</p>
+          <ul>
+            <li>Accurate seeking even in VBR MP3s</li>
+            <li>Read-Along: the ebook scrolls with the narration and corrects itself as you go</li>
+            <li>Audiobook ↔ ebook linking across services</li>
+            <li>Reading plans, reminders and upcoming releases</li>
+          </ul>
+        </div>
+        <div class="media copper reveal scale">
+          <div class="glow"></div>
+          <div class="phone"><img class="zoomable" src="images/showcase/phone-now-playing.jpg" alt="Now Playing for an audiobook"></div>
+        </div>
+      </div>
 
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = '';
-        }
+      <div class="feature">
+        <div class="copy reveal">
+          <span class="tag blue">Music</span>
+          <h3 style="font-size:1.8rem">Music that keeps going</h3>
+          <p class="muted">Plex, Jellyfin and Navidrome as one music collection: bit-perfect FLAC, synced lyrics, and when an album ends the library keeps playing in the same vibe. Premium mixes every music server in one queue — in the car too.</p>
+          <ul>
+            <li>Radio stations built from your own library, endless and never the same song twice in a row</li>
+            <li>Server-first recommendations, with an online lookup only as a fallback</li>
+            <li>Hi-res 24-bit streaming on the mpv engine</li>
+            <li>Chromecast, AirPlay, CarPlay and Android Auto</li>
+          </ul>
+        </div>
+        <div class="media reveal scale">
+          <div class="glow"></div>
+          <div class="duo">
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-music-home.jpg" alt="A music server's home"></div>
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-music-shelves.jpg" alt="Music shelves"></div>
+          </div>
+        </div>
+      </div>
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeLightbox();
-        });
-    </script>
+      <div class="feature">
+        <div class="copy reveal">
+          <span class="tag">Film &amp; TV</span>
+          <h3 style="font-size:1.8rem">Film and TV, with your subtitles</h3>
+          <p class="muted">Movies and shows from Jellyfin and Plex with collections, Next Up and Continue Watching. Pick the subtitle and audio track, set the quality, cast it to the TV — or open the Apple TV app and carry on from the same place.</p>
+          <ul>
+            <li>Resume anywhere; progress goes back to the server</li>
+            <li>Subtitle and audio track selection, a sleep timer for shows</li>
+            <li>Skip Intro from the server's markers</li>
+            <li>Offline video downloads are on the roadmap</li>
+          </ul>
+        </div>
+        <div class="media copper reveal scale">
+          <div class="glow"></div>
+          <div class="tv"><img class="zoomable" src="images/showcase/tv-player.jpg" alt="A film playing on Apple TV with Skip Intro"></div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="copy reveal">
+          <span class="tag blue">Library &amp; Search</span>
+          <h3 style="font-size:1.8rem">Your whole library, searchable</h3>
+          <p class="muted">No hidden caps. Huge Komga series, 500-item Jellyfin libraries, every Kavita reading list — all of it, grouped by series, and one search box that asks every server at once. The index works offline too.</p>
+          <ul>
+            <li>One media index of everything you own, across services</li>
+            <li>Smart collections and series grouping</li>
+            <li>Goodreads and StoryGraph import</li>
+            <li>Duplicate reporting with the companion server</li>
+          </ul>
+        </div>
+        <div class="media reveal scale">
+          <div class="glow"></div>
+          <div class="duo">
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-library.jpg" alt="The Library tab"></div>
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-search.jpg" alt="Search across every server"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="copy reveal">
+          <span class="tag">You</span>
+          <h3 style="font-size:1.8rem">Statistics you can trust</h3>
+          <p class="muted">Listening, reading and watching tracked as their own categories — no music inflating your audiobook hours — with per-source breakdowns, goals, streaks and a year in review.</p>
+          <ul>
+            <li>Goals and reading plans with reminders</li>
+            <li>Per-service history and year-end cards</li>
+            <li>Stats stay on your devices, or on your own companion server</li>
+          </ul>
+        </div>
+        <div class="media copper reveal scale">
+          <div class="glow"></div>
+          <div class="duo">
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-you.jpg" alt="The You tab with streaks and statistics"></div>
+            <div class="phone"><img class="zoomable" src="images/showcase/phone-you-scrolled.jpg" alt="More statistics"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards" style="margin-top:40px">
+      <div class="card reveal" data-delay="1"><div class="ic">⬇️</div><h3>Offline, for real</h3><p>Background downloads, whole series in one tap, and Downloads sections that open with zero network.</p></div>
+      <div class="card reveal" data-delay="2"><div class="ic">🚗</div><h3>CarPlay &amp; Android Auto</h3><p>Every service in the car, with the live queue, source labels and resume. Premium takes the mixed queue along.</p></div>
+      <div class="card reveal" data-delay="3"><div class="ic">⌚</div><h3>Apple Watch &amp; Wear OS</h3><p>Browse and play from the wrist, offline downloads on the watch, playback that keeps going when the screen sleeps.</p></div>
+      <div class="card reveal" data-delay="1"><div class="ic">📡</div><h3>Cast anywhere</h3><p>Chromecast and AirPlay, including AirPlay 2 multi-room on iPhone.</p></div>
+      <div class="card reveal" data-delay="2"><div class="ic">🔐</div><h3>Sign in your way</h3><p>Passwords, API keys, OIDC and SSO across compatible services. Several servers per service, each remembered.</p></div>
+      <div class="card reveal" data-delay="3"><div class="ic">📱</div><h3>Widgets, Siri, Spotlight</h3><p>Home-screen widgets, Live Activities, Siri shortcuts and Spotlight results for your own library.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLE TV ============ -->
+<section id="appletv">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">New</p>
+      <h2>Alexandria for Apple TV</h2>
+      <p class="lead">The same servers, on the biggest screen in the house. Profiles for everyone on the couch, a sidebar built for the remote, and a player that respects the film.</p>
+    </div>
+    <div class="tv-grid">
+      <figure class="wide reveal scale"><div class="tv"><img class="zoomable" src="images/showcase/tv-home.jpg" alt="Apple TV Home"></div><figcaption>Home: a Continue hero, Continue Watching, Next Up and new arrivals from every server at once.</figcaption></figure>
+      <figure class="reveal" data-delay="1"><div class="tv"><img class="zoomable" src="images/showcase/tv-movies.jpg" alt="Film library grid"></div><figcaption>Film libraries from Plex and Jellyfin, with filters, sort, collections and playlists.</figcaption></figure>
+      <figure class="reveal" data-delay="2"><div class="tv"><img class="zoomable" src="images/showcase/tv-film-detail.jpg" alt="A film's detail page"></div><figcaption>Detail pages with cast, ratings and exactly what file the server holds.</figcaption></figure>
+      <figure class="reveal" data-delay="1"><div class="tv"><img class="zoomable" src="images/showcase/tv-music.jpg" alt="Music on Apple TV"></div><figcaption>Music: artists, albums, playlists and a Now Playing made for a room.</figcaption></figure>
+      <figure class="reveal" data-delay="2"><div class="tv"><img class="zoomable" src="images/showcase/tv-audiobooks.jpg" alt="Audiobooks on Apple TV"></div><figcaption>Audiobookshelf on the TV: Continue Listening, series, authors and your stats.</figcaption></figure>
+      <figure class="reveal" data-delay="1"><div class="tv"><img class="zoomable" src="images/showcase/tv-book.jpg" alt="An audiobook's page on Apple TV"></div><figcaption>A book's page, and a player built for the couch.</figcaption></figure>
+      <figure class="reveal" data-delay="2"><div class="tv"><img class="zoomable" src="images/showcase/tv-search.jpg" alt="Search on Apple TV"></div><figcaption>Search every server in one place.</figcaption></figure>
+    </div>
+    <div class="cards" style="margin-top:44px">
+      <div class="card reveal" data-delay="1"><div class="ic">👤</div><h3>Profiles &amp; PINs</h3><p>Who's listening? Each person gets their own sign-ins, progress and Home, with an optional PIN.</p></div>
+      <div class="card reveal" data-delay="2"><div class="ic">🎚️</div><h3>Scrub previews</h3><p>Swipe to scrub with picture previews, Skip Intro from the server's markers, and the stock tvOS transport.</p></div>
+      <div class="card reveal" data-delay="3"><div class="ic">🎉</div><h3>Party Play follower</h3><p>Any Apple TV joins the party your phone started and lands on the same beat as the rest of the house.</p></div>
+      <div class="card reveal" data-delay="4"><div class="ic">⭐</div><h3>Premium on the TV</h3><p>Subscribe on the Apple TV itself, or sign in with the account you already have on your phone.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTY PLAY ============ -->
+<section id="party" class="alt">
+  <div class="wrap party">
+    <div class="reveal">
+      <p class="eyebrow">Party Play</p>
+      <h2>One clock. Every room.</h2>
+      <p class="lead">Start a party from your phone and every Apple TV and speaker in the house plays the same thing at the same moment. The companion server keeps one shared clock; each device measures its own delay and lands on the beat.</p>
+      <ul class="party-points">
+        <li><div class="ic">⏱️</div><div><b>Scheduled starts</b><p>Everyone starts at the same instant on the party's clock — not when the network happens to deliver the message.</p></div></li>
+        <li><div class="ic">📏</div><div><b>Per-device sync</b><p>Each follower shows how far it is from the leader and corrects itself quietly — no hiccups, no restarts.</p></div></li>
+        <li><div class="ic">🔁</div><div><b>Make leader</b><p>Hand the party to another device without a gap. Stop on one device and the party plays on.</p></div></li>
+        <li><div class="ic">🏠</div><div><b>Your network only</b><p>Sync runs on your own companion server. Audio never leaves the house, and nothing goes through a cloud.</p></div></li>
+      </ul>
+    </div>
+    <div class="diagram reveal scale" aria-label="Party Play: a phone leads, a shared clock keeps two Apple TVs and a speaker in sync">
+      <div class="beam b1" data-from=".leader"></div>
+      <div class="beam b2" data-from=".tv1"></div>
+      <div class="beam b3" data-from=".tv2"></div>
+      <div class="beam b4" data-from=".spk"></div>
+      <div class="node clock">party<br>clock</div>
+      <div class="node leader">📱<span>Leader<em>your phone</em></span></div>
+      <div class="node tv1">📺<span>Living room<em data-drift>+2 ms</em></span></div>
+      <div class="node tv2">📺<span>Kitchen<em data-drift>−3 ms</em></span></div>
+      <div class="node spk">🔊<span>Patio<em data-drift>+1 ms</em></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPANION SERVER ============ -->
+<section id="companion">
+  <div class="wrap">
+    <div class="feature" style="padding:0">
+      <div class="copy reveal">
+        <p class="eyebrow">Optional · self-hosted</p>
+        <h2>The companion server</h2>
+        <p class="muted">A small container on any box in the house. It never holds your media and never talks to the outside — it holds the things a household shares.</p>
+        <ul>
+          <li><b>People, not accounts.</b>&nbsp;Profiles for everyone, each linked to their devices with a six-character code. PIN gates on the TV.</li>
+          <li><b>One index of everything you own.</b>&nbsp;It tells you which works sit on more than one server — and only ever reports them.</li>
+          <li><b>Statistics that stay home.</b>&nbsp;Listening and reading history per person, kept in one SQLite file you can back up with a button.</li>
+          <li><b>The party's clock.</b>&nbsp;Scheduled starts, drift read-outs and leader handover for Party Play.</li>
+        </ul>
+      </div>
+      <div class="media reveal scale">
+        <div class="glow"></div>
+        <div class="frame"><img class="zoomable" src="images/showcase/companion-admin.png" alt="The companion server's admin page: people, devices and the library index"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLATFORMS ============ -->
+<section class="alt tight">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Everywhere you are</p>
+      <h2>One library, seven screens.</h2>
+    </div>
+    <div class="platforms" style="margin-top:28px">
+      <div class="platform reveal" data-delay="1"><div class="ic">📱</div><b>iPhone</b><span>widgets, Live Activities, Siri</span></div>
+      <div class="platform reveal" data-delay="1"><div class="ic">🤖</div><b>Android</b><span>home widgets, background downloads</span></div>
+      <div class="platform reveal" data-delay="2"><div class="ic">📺</div><b>Apple TV</b><span>profiles, Party Play, scrub previews</span></div>
+      <div class="platform reveal" data-delay="2"><div class="ic">⌚</div><b>Apple Watch</b><span>standalone playback, downloads</span></div>
+      <div class="platform reveal" data-delay="3"><div class="ic">⌚</div><b>Wear OS</b><span>full companion app</span></div>
+      <div class="platform reveal" data-delay="3"><div class="ic">🚗</div><b>CarPlay</b><span>every service, the live queue</span></div>
+      <div class="platform reveal" data-delay="4"><div class="ic">🚙</div><b>Android Auto</b><span>cold-launch safe, resume</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Standard &amp; Premium</p>
+      <h2>Free with two services. Premium ties them together.</h2>
+      <p class="lead">Alexandria is free with two services. Premium lifts the limit and unlocks the features that span your servers.</p>
+    </div>
+    <div class="plans">
+      <div class="plan reveal" data-delay="1">
+        <span class="tag">Standard</span>
+        <div class="price">Free</div>
+        <ul>
+          <li>Two services, swappable once a month</li>
+          <li>Up to three server connections for each of those services</li>
+          <li>Every kind of media those services hold — audiobooks, ebooks, comics, music and video</li>
+          <li>Offline downloads and background playback</li>
+          <li>All built-in readers — EPUB, PDF and comics</li>
+          <li>Read-Along, the follow-as-you-listen teleprompter</li>
+          <li>Queues of any length within a single service, with shuffle and reordering</li>
+          <li>CarPlay and Android Auto</li>
+          <li>Chromecast and AirPlay</li>
+          <li>Statistics, goals and reading plans</li>
+          <li>Sleep timer, synced lyrics, and search across both services</li>
+          <li>Bug reports — always free, always read</li>
+        </ul>
+      </div>
+      <div class="plan premium reveal" data-delay="2">
+        <span class="tag blue">Premium</span>
+        <div class="price">Monthly <small>or pay once for lifetime</small></div>
+        <ul>
+          <li>Every service, no limit — connect as many as you run</li>
+          <li>Unlimited connections per service — three Plex servers and two Audiobookshelf instances, if that is your setup</li>
+          <li>The cross-service queue: mix Plex, Jellyfin and Navidrome in one queue and play straight through</li>
+          <li>That same mixed queue in CarPlay and Android Auto</li>
+          <li>Radio stations that draw on every music service at once</li>
+          <li>Party Play across the whole house</li>
+          <li>Apple Watch and Wear OS, with all your services on your wrist</li>
+          <li>Priority support, answered first</li>
+        </ul>
+      </div>
+    </div>
+    <p class="fineprint">Premium can be bought on the phone or on the Apple TV, and one subscription covers both. Nothing you have downloaded ever stops being yours, and playback of a single service is never limited.</p>
+  </div>
+</section>
+
+<!-- ============ SCREENSHOTS ============ -->
+<section id="gallery" class="alt tight">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Screenshots</p>
+      <h2>A closer look.</h2>
+      <p class="lead">Tap any screen to enlarge it. Everything here is a staged library — the titles are invented, so nothing you see belongs to anyone else.</p>
+    </div>
+    <div class="trio reveal scale" style="margin-top:20px">
+      <div class="phone"><img class="zoomable" src="images/showcase/phone-switcher.jpg" alt="The server switcher"></div>
+      <div class="phone"><img class="zoomable" src="images/showcase/phone-abs-home.jpg" alt="An Audiobookshelf home"></div>
+      <div class="phone"><img class="zoomable" src="images/showcase/phone-settings.jpg" alt="Settings"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Roadmap</p>
+      <h2>Where it is going.</h2>
+      <p class="lead">Driven by what people ask for on Reddit and by email. Dates are never promised; order is.</p>
+    </div>
+    <div class="roadmap-cols">
+      <div class="col reveal" data-delay="1">
+        <h3><i></i>In progress</h3>
+        <div class="item"><strong>Polish &amp; performance for v3.1.x</strong><p>Bug fixes and refinements driven by community feedback.</p></div>
+        <div class="item"><strong>Jellyfin video downloads</strong><p>Offline video — take your movies and shows with you.</p></div>
+        <div class="item"><strong>Offline search for the newest services</strong><p>Bringing the offline search index to Navidrome, Stump and Custom OPDS.</p></div>
+        <div class="item"><strong>Background playback polish on Wear OS</strong><p>Further refinement of screen-off and background playback on the watch.</p></div>
+      </div>
+      <div class="col planned reveal" data-delay="2">
+        <h3><i></i>Planned</h3>
+        <div class="item"><strong>Party Play on more devices</strong><p>Android and Wear OS as followers, and a dashboard that shows every room's drift.</p></div>
+        <div class="item"><strong>BookWyrm reading sync</strong><p>Sync reading activity with BookWyrm, the federated Goodreads alternative.</p></div>
+        <div class="item"><strong>LAN server auto-discovery</strong><p>Find servers on your local network automatically.</p></div>
+        <div class="item"><strong>Read-Along evolution</strong><p>The next generation of the read-along experience.</p></div>
+      </div>
+      <div class="col future reveal" data-delay="3">
+        <h3><i></i>Recently shipped</h3>
+        <div class="item done"><strong>Alexandria for Apple TV</strong><p>Profiles, films and TV, music, audiobooks and Party Play on the big screen.</p></div>
+        <div class="item done"><strong>Party Play</strong><p>Shared clock, scheduled starts, per-device sync and leader handover.</p></div>
+        <div class="item done"><strong>Navidrome &amp; Subsonic</strong><p>Artists, albums, playlists, favourites, search and offline downloads.</p></div>
+        <div class="item done"><strong>Custom OPDS &amp; Stump</strong><p>Any OPDS 1.2 or 2.0 catalog, and Stump with reading position synced back.</p></div>
+        <div class="item done"><strong>Discover &amp; Radio</strong><p>For You shelves and radio stations built entirely from your own library.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUPPORT ============ -->
+<section id="bugs" class="alt">
+  <div class="wrap">
+    <div class="two">
+      <div class="reveal">
+        <p class="eyebrow">Bug reports</p>
+        <h2>Found a bug?</h2>
+        <p class="muted">Every report is read. Please include your device model, OS version, the Alexandria version and the steps to reproduce it.</p>
+        <a class="btn btn-primary" href="mailto:stoutservers@gmail.com?subject=Alexandria%20Bug%20Report&body=Device:%0AOS%20Version:%0AAlexandria%20Version:%0A%0ADescription:%0A%0ASteps%20to%20Reproduce:%0A1.%0A2.%0A3.%0A%0AExpected%20Behavior:%0A%0AActual%20Behavior:%0A">Report a bug</a>
+        <h3 style="margin-top:36px">Known issues</h3>
+        <div class="issues">
+          <div class="issue"><div><b>Grimmory (formerly BookLore) interrupted downloads</b><p>Interrupted downloads can interfere with opening the downloaded book.</p></div><span class="status investigating">Investigating</span></div>
+          <div class="issue"><div><b>Series number not showing in Calibre offline</b><p>Series number metadata does not display when viewing Calibre books offline.</p></div><span class="status investigating">Investigating</span></div>
+          <div class="issue"><div><b>.cbz format limited to 50 pages</b><p>Android: CBZ comics may only display up to 50 pages.</p></div><span class="status">Unconfirmed</span></div>
+        </div>
+        <details class="more">
+          <summary>Recently fixed</summary>
+          <div class="issues">
+            <div class="issue"><div><b>ABS progress not syncing to server</b><p>Lazy session creation ensures progress always syncs. Manual sync now bypasses cooldown guards.</p></div><span class="status fixed">Fixed</span></div>
+            <div class="issue"><div><b>Orphaned ABS listening sessions</b><p>Previous sessions are closed before creating new ones. No more ghost 30-second sessions.</p></div><span class="status fixed">Fixed</span></div>
+            <div class="issue"><div><b>Play/Resume navigation delay</b><p>Tapping play on hero cards opens Now Playing immediately.</p></div><span class="status fixed">Fixed</span></div>
+            <div class="issue"><div><b>Bookmark double-delete required</b><p>Bookmarks delete on first tap.</p></div><span class="status fixed">Fixed</span></div>
+            <div class="issue"><div><b>Android splash screen font flash</b><p>Quote text no longer re-renders with a different font.</p></div><span class="status fixed">Fixed</span></div>
+            <div class="issue"><div><b>Android Auto &amp; CarPlay</b><p>Cold-launch, connection stability and playback resume all fixed in v2.0.</p></div><span class="status fixed">Fixed</span></div>
+          </div>
+        </details>
+      </div>
+      <div id="features-request" class="reveal" data-delay="1">
+        <p class="eyebrow">Feature requests</p>
+        <h2>Have an idea?</h2>
+        <p class="muted">Help shape what comes next — a feature, an improvement, or a server you would like to see supported.</p>
+        <a class="btn btn-copper" href="mailto:stoutservers@gmail.com?subject=Alexandria%20Feature%20Request&body=Feature%20Summary:%0A%0ADescription:%0A%0AUse%20Case:%0A%0AExpected%20Behavior:%0A%0AAdditional%20Notes:%0A">Request a feature</a>
+        <h3 style="margin-top:36px">Requests that shipped</h3>
+        <div class="issues">
+          <div class="issue"><div><b>Navidrome / Subsonic music servers</b><p>Navidrome, plus Gonic, Airsonic and other Subsonic-API servers.</p></div><span class="status shipped">Shipped</span></div>
+          <div class="issue"><div><b>Generic OPDS server support</b><p>Shipped as Custom OPDS — COPS, Ubooquity, Calibre-Web OPDS and any OPDS 1.2 or 2.0 feed.</p></div><span class="status shipped">Shipped</span></div>
+          <div class="issue"><div><b>Apple TV app</b><p>Off the "exploring" list and onto the big screen.</p></div><span class="status shipped">Shipped</span></div>
+          <div class="issue"><div><b>Batch downloads</b><p>Download Series — one tap queues an entire series.</p></div><span class="status shipped">Shipped</span></div>
+          <div class="issue"><div><b>Jellyfin Chromecast casting</b><p>Part of the complete Jellyfin music experience.</p></div><span class="status shipped">Shipped</span></div>
+          <div class="issue"><div><b>Extended OIDC support</b><p>OIDC across all compatible services, not just Audiobookshelf.</p></div><span class="status shipped">Shipped</span></div>
+          <div class="issue"><div><b>Sleep timer enhancements</b><p>Works reliably with the phone locked.</p></div><span class="status implemented">Implemented</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section id="community" class="tight">
+  <div class="wrap">
+    <div class="community-box reveal scale">
+      <p class="eyebrow">Community</p>
+      <h2>Get help, share feedback, compare setups.</h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto">The subreddit is where releases are announced first and where most requests on this page started.</p>
+      <div class="cta-row" style="justify-content:center">
+        <a class="btn btn-primary" href="https://www.reddit.com/r/AlexandriaMediaLib2/" target="_blank" rel="noopener">r/AlexandriaMediaLib2</a>
+        <a class="btn btn-ghost" href="mailto:stoutservers@gmail.com?subject=Alexandria%20Feedback">Email us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>Alexandria © 2025–2026 Stout Solutions. All rights reserved.</div>
+    <div>Screens shown use a staged library with invented titles. · <a href="mailto:support@stoutsolutions.dev">Contact</a></div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Enlarged screenshot"><img id="lightbox-img" src="" alt=""></div>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

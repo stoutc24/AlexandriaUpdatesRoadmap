@@ -11,7 +11,7 @@ server, pricing, the roadmap, bug reports, feature requests and the community.
   `#C9822A`), device mockups (`.phone`, `.tv`), the Party Play diagram, pricing,
   roadmap and issue lists. Respects `prefers-reduced-motion`.
 - `assets/site.js` — reveal-on-scroll, services marquee, gentle parallax,
-  mobile nav, lightbox, counters, Party Play beams and drift read-outs.
+  mobile nav, lightbox, counters and the Party Play beams.
 - `images/showcase/` — screenshots from the staged showcase library (invented
   titles and generated art, nothing copyrighted), produced by
   `abs_kavita_client/tools/showcase/site_images.py`; `og.jpg` is the link preview.

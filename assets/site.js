@@ -1,4 +1,4 @@
-// Alexandria site: reveal-on-scroll, marquee, parallax, nav, lightbox, counters, Party Play readouts.
+// Alexandria site: reveal-on-scroll, marquee, parallax, nav, lightbox, counters, Party Play beams.
 (function () {
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -77,17 +77,6 @@
     }, { threshold: 0.5 });
     seen.observe(el);
   });
-
-  // Party Play: the followers' drift readouts breathe a little.
-  var drifts = document.querySelectorAll('[data-drift]');
-  if (drifts.length && !reduced) {
-    setInterval(function () {
-      drifts.forEach(function (d) {
-        var v = Math.round(Math.random() * 8 - 4);
-        d.textContent = (v > 0 ? '+' : '') + v + ' ms';
-      });
-    }, 1700);
-  }
 
   // Beams in the Party Play diagram: lay each one from its node to the clock.
   var layBeams = function () {

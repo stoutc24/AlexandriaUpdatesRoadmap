@@ -301,6 +301,16 @@ details.more summary::-webkit-details-marker { display: none; }
 details.more summary::after { content: " ↓"; }
 details.more[open] summary::after { content: " ↑"; }
 
+/* ---------- faq ---------- */
+.faq { display: grid; gap: 12px; max-width: 860px; }
+.faq details { padding: 16px 18px; border-radius: 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line); }
+.faq summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; color: var(--blue-2); font-weight: 800; }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { margin: 10px 0 0; color: var(--muted); font-size: 0.95rem; }
+.faq a { color: var(--blue-2); }
+
 /* ---------- community / footer ---------- */
 .community-box { border-radius: 28px; padding: 48px; text-align: center; background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(201, 130, 42, 0.12)), var(--surface); border: 1px solid var(--line); }
 footer { padding: 44px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
@@ -349,7 +359,8 @@ footer a { color: var(--muted); }
 }
 
 /* nav at laptop / iPad-landscape widths: keep the brand intact and hide the
-   duplicate store buttons (the hero badges stay visible) */
+   duplicate store buttons (the hero badges stay visible). 1200, not 1160,
+   since the FAQ link: at 1161 the row ran past the edge. */
 .brand { flex: none; }
 .nav-cta .btn { white-space: nowrap; }
-@media (max-width: 1160px) { .nav-cta { display: none; } }
+@media (max-width: 1200px) { .nav-cta { display: none; } }

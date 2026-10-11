@@ -330,18 +330,87 @@
       <div class="copy reveal">
         <p class="eyebrow">Optional · self-hosted</p>
         <h2>The companion server</h2>
-        <p class="muted">A small container for any box in the house, x86 or ARM — with testers now, public soon. It never holds your media and never talks to the outside; it holds the things a household shares.</p>
+        <p class="muted">A small, free container for any box in the house, x86 or ARM. It never holds your media and never talks to the outside; it holds the things a household shares.</p>
         <ul>
           <li><span><b>People, not accounts.</b> Profiles for everyone, each device linked with a six-character code. Phones and Apple TVs find the server on your network with one press.</span></li>
           <li><span><b>One index across your servers.</b> It tells you which works sit on more than one server — and only ever reports them. (Kavita and Custom OPDS libraries aren't indexed.)</span></li>
           <li><span><b>Statistics that stay home.</b> Listening and reading history per person, kept in one SQLite file you can back up with a button.</span></li>
           <li><span><b>The party's clock.</b> Scheduled starts, drift read-outs and leader handover for Party Play.</span></li>
         </ul>
+        <div class="cta-row" style="margin-top:26px">
+          <a class="btn btn-primary" href="#install">Install it</a>
+          <a class="btn btn-ghost" href="https://github.com/stoutc24/alexandria-server#readme" target="_blank" rel="noopener">The full guide</a>
+        </div>
       </div>
       <div class="media reveal scale">
         <div class="glow"></div>
         <div class="frame"><img class="zoomable" src="images/showcase/companion-admin-full.png" alt="The companion server's admin page: people and their devices, the library index and a backup button" width="1440" height="1382" loading="lazy" decoding="async"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTALL THE COMPANION SERVER ============ -->
+<section id="install" class="tight">
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">Companion server · install</p>
+      <h2>Install it with Docker.</h2>
+      <p class="lead">On any 64-bit machine that stays on: a NAS, a Raspberry Pi 4 or 5, a Linux box, or a Mac or Windows PC with Docker Desktop. It idles at about 20&nbsp;MB of memory and needs port 4000 on your home network.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="num">1</span>
+        <div class="body">
+        <h3>Start the server</h3>
+        <p>On Linux or macOS, this sets it up in <code>~/alexandria-server</code>, starts it, and prints your <b>admin token</b>. Keep the token somewhere safe: it is the master key.</p>
+        <div class="code"><div class="bar"><span>Terminal</span><button class="copy" type="button">Copy</button></div><pre class="soft"><code>curl -fsSL https://raw.githubusercontent.com/stoutc24/alexandria-server/main/scripts/install.sh | bash</code></pre></div>
+        <details class="more">
+          <summary>On Windows, or rather use Docker Compose?</summary>
+          <p>Make a folder with these two files, then run <code>docker compose up -d</code> in it.</p>
+          <div class="code"><div class="bar"><span>docker-compose.yml</span><button class="copy" type="button">Copy</button></div><pre><code>services:
+  alexandria-server:
+    image: ghcr.io/stoutc24/alexandria-server:latest
+    container_name: alexandria-server
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    volumes:
+      - alexandria-data:/data
+    environment:
+      - ALEXANDRIA_API_TOKEN=${ALEXANDRIA_API_TOKEN:?set ALEXANDRIA_API_TOKEN in .env}
+      - ALEXANDRIA_SERVER_NAME=${ALEXANDRIA_SERVER_NAME:-Alexandria Companion}
+      - ALEXANDRIA_PUBLIC_URL=${ALEXANDRIA_PUBLIC_URL:-}
+      - ALEXANDRIA_TRUSTED_PROXIES=${ALEXANDRIA_TRUSTED_PROXIES:-}
+      - TZ=${TZ:-UTC}
+
+volumes:
+  alexandria-data:</code></pre></div>
+          <div class="code"><div class="bar"><span>.env</span><button class="copy" type="button">Copy</button></div><pre><code>ALEXANDRIA_API_TOKEN=&lt;your token&gt;
+ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
+          <p>For the token, use <code>openssl rand -hex 32</code>, or a long random password from your password manager. The server won't start with one shorter than 16 characters.</p>
+        </details>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="num">2</span>
+        <div class="body">
+        <h3>Set up your admin login</h3>
+        <p>Open <code>http://&lt;server address&gt;:4000/admin</code> in a browser and enter the admin token. Then choose a password, add the login to your authenticator app, and keep the ten recovery codes it shows you.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <span class="num">3</span>
+        <div class="body">
+        <h3>Link your devices</h3>
+        <p>On a phone, open <b>Settings › Companion Server</b>, tap <b>Find my server on this network</b>, then <b>Get a link code</b>. Approve the code on the admin page, naming whose device it is.</p>
+        <p>On Apple TV: <b>Settings › Companion Server › Link Companion Server › Find My Server</b>. Watches link through their phone.</p>
+        </div>
+      </div>
+    </div>
+    <div class="install-foot reveal">
+      <p><b>Updating.</b> In the server's folder, run <code>docker compose pull &amp;&amp; docker compose up -d</code>. People, devices and statistics live in the data volume and survive updates.</p>
+      <p><b>Everything else.</b> Settings, reaching it from outside your home over HTTPS, backups and troubleshooting are in <a href="https://github.com/stoutc24/alexandria-server#readme" target="_blank" rel="noopener">the full guide on GitHub</a>.</p>
     </div>
   </div>
 </section>
@@ -531,14 +600,11 @@
     <p class="eyebrow">FAQ</p>
     <h2>Questions people ask.</h2>
     <div class="faq reveal">
+      <p class="faq-group">The app</p>
       <details>
         <summary>Why did the music stop when my playlist or album ended?</summary>
         <p>When a queue runs out, <b>Keep the music going</b> (Settings › Playback, on by default) carries on from your own Plex, Jellyfin or Navidrome library. It looks at the album that just finished and builds a mix of at least two artists that share its genre or its artist. You get a mix, never one band's whole discography, and never a guess.</p>
         <p>If that album has no genre tag on your server, or nothing else in your library shares its genre or artist, there is nothing it can honestly follow it with, so playback stops. Add a genre to that album on your server and it will carry on next time. It uses only your own library; no online service is involved.</p>
-      </details>
-      <details>
-        <summary>Do I need the companion server?</summary>
-        <p>No. Alexandria works fully without it. The companion server is an optional small container you run at home. It adds <a href="#party">Party Play</a>, listening statistics for each person in your household, and one library index across your servers. It is with testers now and public soon; see <a href="#companion">the companion server</a>.</p>
       </details>
       <details>
         <summary>What's free, and what does Premium add?</summary>
@@ -555,6 +621,32 @@
       <details>
         <summary>How do I report a bug or ask for a feature?</summary>
         <p>Use the buttons under <a href="#bugs">Support</a> to email us, or post on <a href="https://www.reddit.com/r/AlexandriaMediaLib2/" target="_blank" rel="noopener">r/AlexandriaMediaLib2</a>. For a bug, include your device, its OS version and your Alexandria version.</p>
+      </details>
+
+      <p class="faq-group">The companion server</p>
+      <details>
+        <summary>Do I need the companion server?</summary>
+        <p>No. Alexandria works fully without it. The companion server is an optional small container you run at home. It adds <a href="#party">Party Play</a>, listening statistics for each person in your household, and one library index across your servers. <a href="#install">Install</a> shows how to set it up.</p>
+      </details>
+      <details>
+        <summary>What do I need to run it?</summary>
+        <p>Docker, on a 64-bit machine that stays on: most NAS boxes, a Raspberry Pi 4 or 5 on a 64-bit OS, or any PC or Mac. It needs port 4000 on your home network, and Alexandria 3.1 or later on your phone. It idles at about 20&nbsp;MB of memory.</p>
+      </details>
+      <details>
+        <summary>Is it free?</summary>
+        <p>Yes. The companion server is free to download and run on your own hardware.</p>
+      </details>
+      <details>
+        <summary>Does it see my media, or send anything to you?</summary>
+        <p>No. It never holds your media or your media-server sign-ins; those stay on each device. It makes no outbound connections and sends nothing to us. Each person's statistics stay in one database file on your machine, and the admin page shows counts and dates, never what anyone listened to or read.</p>
+      </details>
+      <details>
+        <summary>Can I use it away from home?</summary>
+        <p>Yes, behind an HTTPS reverse proxy such as Caddy or nginx. Set <code>ALEXANDRIA_PUBLIC_URL</code> to that address and linked phones are told about it. The guide's <a href="https://github.com/stoutc24/alexandria-server#reaching-it-from-outside-your-home" target="_blank" rel="noopener">outside your home</a> section has examples for both.</p>
+      </details>
+      <details>
+        <summary>“Find my server” doesn't find it. What now?</summary>
+        <p>The apps search your device's own network on port 4000. Check that the phone or TV is on the same network as the server (not a guest network), that the server is on port 4000, and that no firewall blocks it. You can always type the address instead, such as <code>192.168.1.50:4000</code>.</p>
       </details>
     </div>
   </div>

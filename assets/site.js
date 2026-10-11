@@ -59,6 +59,34 @@
     window.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('open'); });
   }
 
+  // Copy buttons on the install commands. Without the Clipboard API (an
+  // http:// preview, an old browser) the button selects the text instead,
+  // ready for Ctrl/Cmd+C.
+  document.querySelectorAll('.code .copy').forEach(function (btn) {
+    var box = btn.closest('.code');
+    var code = box && box.querySelector('code');
+    if (!code) return;
+    var flash = function (label) {
+      btn.textContent = label;
+      setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+    };
+    var select = function () {
+      var r = document.createRange();
+      r.selectNodeContents(code);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      flash('Selected');
+    };
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(code.textContent).then(function () { flash('Copied'); }, select);
+      } else {
+        select();
+      }
+    });
+  });
+
   // Counters.
   document.querySelectorAll('[data-count]').forEach(function (el) {
     var end = parseInt(el.getAttribute('data-count'), 10);

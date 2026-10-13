@@ -363,7 +363,7 @@
         <span class="num">1</span>
         <div class="body">
         <h3>Start the server</h3>
-        <p>On Linux or macOS, this sets it up in <code>~/alexandria-server</code>, starts it, and prints your <b>admin token</b>. Keep the token somewhere safe: it is the master key.</p>
+        <p>On Linux or macOS, this sets it up in <code>~/alexandria-server</code>, starts it, and prints your <b>admin token</b> and <b>secrets key</b>. Keep both somewhere safe, apart from your backups: the token is the master key, and the secrets key opens the service logins Alexandria accounts keep.</p>
         <div class="code"><div class="bar"><span>Terminal</span><button class="copy" type="button">Copy</button></div><pre class="soft"><code>curl -fsSL https://raw.githubusercontent.com/stoutc24/alexandria-server/main/scripts/install.sh | bash</code></pre></div>
         <details class="more">
           <summary>On Windows, or rather use Docker Compose?</summary>
@@ -382,13 +382,16 @@
       - ALEXANDRIA_SERVER_NAME=${ALEXANDRIA_SERVER_NAME:-Alexandria Companion}
       - ALEXANDRIA_PUBLIC_URL=${ALEXANDRIA_PUBLIC_URL:-}
       - ALEXANDRIA_TRUSTED_PROXIES=${ALEXANDRIA_TRUSTED_PROXIES:-}
+      - ALEXANDRIA_SECRETS_KEY=${ALEXANDRIA_SECRETS_KEY:-}
       - TZ=${TZ:-UTC}
 
 volumes:
   alexandria-data:</code></pre></div>
           <div class="code"><div class="bar"><span>.env</span><button class="copy" type="button">Copy</button></div><pre><code>ALEXANDRIA_API_TOKEN=&lt;your token&gt;
+ALEXANDRIA_SECRETS_KEY=&lt;your secrets key&gt;
 ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
           <p>For the token, use <code>openssl rand -hex 32</code>, or a long random password from your password manager. The server won't start with one shorter than 16 characters.</p>
+          <p>For the secrets key, use <code>openssl rand -base64 32</code> — a different value. A key that is set but malformed stops the server from starting, on purpose; leave it out and accounts still sign people in, without keeping their service logins.</p>
         </details>
         </div>
       </div>
@@ -407,9 +410,16 @@ ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
         <p>On Apple TV: <b>Settings › Companion Server › Link Companion Server › Find My Server</b>. Watches link through their phone.</p>
         </div>
       </div>
+      <div class="step reveal">
+        <span class="num">4</span>
+        <div class="body">
+        <h3>Give people one sign-in <span class="muted">(optional)</span></h3>
+        <p>On the admin page, open a person's <b>Sign-in &amp; services</b>: add their servers in the order you want them, then <b>Invite to sign in</b> and send them the link. Every phone they sign in on gets those servers, signed in. For Plex, pick them from your Plex — no address or token to type.</p>
+        </div>
+      </div>
     </div>
     <div class="install-foot reveal">
-      <p><b>Updating.</b> In the server's folder, run <code>docker compose pull &amp;&amp; docker compose up -d</code>. People, devices and statistics live in the data volume and survive updates.</p>
+      <p><b>Updating.</b> In the server's folder, run <code>docker compose pull &amp;&amp; docker compose up -d</code>. People, devices and statistics live in the data volume and survive updates. Set up before accounts? Add the <code>ALEXANDRIA_SECRETS_KEY</code> line to <code>docker-compose.yml</code> and a key to <code>.env</code> (the installer's update does this for you).</p>
       <p><b>Everything else.</b> Settings, reaching it from outside your home over HTTPS, backups and troubleshooting are in <a href="https://github.com/stoutc24/alexandria-server#readme" target="_blank" rel="noopener">the full guide on GitHub</a>.</p>
     </div>
   </div>

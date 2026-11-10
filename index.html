@@ -391,6 +391,14 @@ volumes:
 ALEXANDRIA_SECRETS_KEY=&lt;your secrets key&gt;
 ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
           <p>For the token, use <code>openssl rand -hex 32</code>, or a long random password from your password manager. The server won't start with one shorter than 16 characters.</p>
+          <p>Windows has no <code>openssl</code>. In PowerShell, this prints a token:</p>
+          <div class="code"><div class="bar"><span>PowerShell</span><button class="copy" type="button">Copy</button></div><pre><code>$b = New-Object byte[] 32
+[Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b)
+($b | ForEach-Object { $_.ToString('x2') }) -join ''</code></pre></div>
+          <p>and this prints a secrets key (run it separately, so the two values differ):</p>
+          <div class="code"><div class="bar"><span>PowerShell</span><button class="copy" type="button">Copy</button></div><pre><code>$b = New-Object byte[] 32
+[Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b)
+[Convert]::ToBase64String($b)</code></pre></div>
           <p>For the secrets key, use <code>openssl rand -base64 32</code> — a different value. A key that is set but malformed stops the server from starting, on purpose; leave it out and accounts still sign people in, without keeping their service logins.</p>
         </details>
         </div>
@@ -640,7 +648,7 @@ ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
       </details>
       <details>
         <summary>What do I need to run it?</summary>
-        <p>Docker, on a 64-bit machine that stays on: most NAS boxes, a Raspberry Pi 4 or 5 on a 64-bit OS, or any PC or Mac. It needs port 4000 on your home network, and Alexandria 3.1 or later on your phone. It idles at about 20&nbsp;MB of memory.</p>
+        <p>Docker, on a 64-bit machine that stays on: most NAS boxes, a Raspberry Pi 4 or 5 on a 64-bit OS, or any PC or Mac. It needs port 4000 on your home network, and a current Alexandria app on the devices you link. It idles at about 20&nbsp;MB of memory.</p>
       </details>
       <details>
         <summary>Is it free?</summary>
@@ -653,6 +661,38 @@ ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
       <details>
         <summary>Can I use it away from home?</summary>
         <p>Yes, behind an HTTPS reverse proxy such as Caddy or nginx. Set <code>ALEXANDRIA_PUBLIC_URL</code> to that address and linked phones are told about it. The guide's <a href="https://github.com/stoutc24/alexandria-server#reaching-it-from-outside-your-home" target="_blank" rel="noopener">outside your home</a> section has examples for both.</p>
+      </details>
+      <details>
+        <summary>Which apps can link to it?</summary>
+        <p>Alexandria on iPhone, iPad, Android, Mac, Windows and Apple TV. Each shows a six-character code that you approve; nobody types a long token. An Apple Watch or Wear OS watch is linked by its phone, with no code (the watch apps are part of Premium).</p>
+      </details>
+      <details>
+        <summary>I made an invite. Where do I type it on the TV?</summary>
+        <p>You don't: a TV takes no invite. An invite is for a phone, tablet or computer, where the person chooses a password. A TV shows a code of its own. On the TV, open <b>Link with a Code</b> (or <b>Settings › Companion Server</b>), then approve the code it shows, as that person: on the admin page, or on a phone under <b>Manage server › Waiting to connect</b>, or from the person's <b>Link a TV</b>. The TV then signs in to the services you set up for them.</p>
+      </details>
+      <details>
+        <summary>Does anything on the server need Premium?</summary>
+        <p>The server itself is free and unlocks nothing. Premium is checked on each device: starting a Party Play session and the watch apps are part of Premium, and joining a party is free. Linking a device never gives it Premium.</p>
+      </details>
+      <details>
+        <summary>I lost my authenticator, my password or my admin token.</summary>
+        <p>On the admin page's sign-in screen, <b>Use a recovery code</b> signs you in with one of the ten codes you saved. Without those, <b>start over with your admin token</b> sets the login up again; the token is in the <code>.env</code> file in the server's folder. If the token is gone too, put a new one in <code>.env</code> and restart the server: your people, devices and statistics are untouched.</p>
+      </details>
+      <details>
+        <summary>How do I update it without losing anything?</summary>
+        <p>Run the update command from the <a href="https://github.com/stoutc24/alexandria-server#updating" target="_blank" rel="noopener">guide</a> (or <code>docker compose pull &amp;&amp; docker compose up -d</code>). Your data lives in a Docker volume and survives updates. Never run <code>docker compose down -v</code>: the <code>-v</code> deletes that volume.</p>
+      </details>
+      <details>
+        <summary>How do I back it up, restore it, or move it to another machine?</summary>
+        <p><b>Download backup</b> on the admin page gives you the whole server as one file. Keep your secrets key separately: it is deliberately not in the backup, and the saved service logins cannot be opened without it. Restoring, and moving to another machine, are a few commands in the guide's <a href="https://github.com/stoutc24/alexandria-server#backups" target="_blank" rel="noopener">Backups</a> section.</p>
+      </details>
+      <details>
+        <summary>Can I use Tailscale or another VPN instead of opening it to the internet?</summary>
+        <p>Yes. Type the server's VPN address in the app's Companion Server screen, such as <code>http://100.101.102.103:4000</code>, and everything works while the device is on the VPN. One limit: a phone stays signed in to <b>Manage server</b> only over an <code>https://</code> address; over plain http it signs in for that session, twelve hours at most.</p>
+      </details>
+      <details>
+        <summary>Is it open source? Where do I report a problem with it?</summary>
+        <p>It is free to run on your own hardware, and it is proprietary software, not open source. Report bugs and ask for features on <a href="https://github.com/stoutc24/alexandria-server/issues" target="_blank" rel="noopener">GitHub</a>, or use <a href="#bugs">Support</a>. For a security problem, write privately as the guide's security page describes, never in a public issue.</p>
       </details>
       <details>
         <summary>“Find my server” doesn't find it. What now?</summary>

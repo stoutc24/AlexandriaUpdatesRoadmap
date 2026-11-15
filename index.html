@@ -105,7 +105,7 @@
       <div class="head">
         <span class="tag green">Out now on the App Store</span>
         <h2>Version 3.2</h2>
-        <p class="muted" style="margin:0">Party Play, Live TV, three more services, Play Next for whole albums and recommendations built from your own library — alongside Alexandria for Apple TV. On the App Store now for iPhone, iPad and Apple Watch. Android gets Version 3.1, coming to Google Play.</p>
+        <p class="muted" style="margin:0">Party Play, Live TV, three more services, Play Next for whole albums and recommendations built from your own library — alongside Alexandria for Apple TV. On the App Store now for iPhone, iPad and Apple Watch. Android has Version 3.1 on Google Play.</p>
       </div>
       <div class="cards">
         <div class="card copper reveal" data-delay="1"><div class="ic">🎉</div><h3>Party Play</h3><p>One clock for every room, kept by your own companion server. Play from your phone and every Apple TV or phone on your profile can join with one press — audiobooks and music, in step. Scheduled starts, per-device sync, and hand the lead to another device.</p></div>
@@ -120,7 +120,7 @@
       <details class="more">
         <summary>What arrived in Version 3.0</summary>
         <div class="cards" style="margin-top:16px">
-          <div class="card"><h3>Jellyfin, music and video</h3><p>Playlists, a music-style home, artist pages, quality selector, Chromecast, CarPlay and Android Auto — and Jellyfin Video with collections, Continue Watching, resume, subtitles and audio tracks.</p></div>
+          <div class="card"><h3>Jellyfin, music and video</h3><p>Playlists, a music-style home, artist pages, quality selector, CarPlay and Android Auto — and Jellyfin Video with collections, Continue Watching, resume, subtitles and audio tracks.</p></div>
           <div class="card"><h3>Grimmory</h3><p>BookLore has been succeeded by Grimmory, and Alexandria fully supports it. Existing BookLore connections keep working unchanged.</p></div>
           <div class="card"><h3>Hi-res, untouched</h3><p>Lossless FLAC streamed untouched — the original file, no transcoding — for Plex and Jellyfin. 24-bit and high-sample-rate files stream and play, powered by the mpv audio engine.</p></div>
           <div class="card"><h3>Offline, for real</h3><p>Every Downloads section redesigned: series-grouped grids, cover art and summaries with zero network. Downloads open with no connection, and a server error no longer hides them.</p></div>
@@ -192,7 +192,7 @@
             <li>Radio stations built from each music server's own library — they keep going and avoid the same artist twice in a row</li>
             <li>Server-first recommendations, with an online lookup only as a fallback</li>
             <li>Hi-res 24-bit streaming on the mpv engine</li>
-            <li>Chromecast for Plex and Jellyfin music, plus AirPlay, CarPlay and Android Auto</li>
+            <li>AirPlay, CarPlay and Android Auto</li>
           </ul>
         </div>
         <div class="media reveal scale">
@@ -205,7 +205,7 @@
         <div class="copy reveal">
           <span class="tag">Film &amp; TV</span>
           <h3 style="font-size:1.8rem">Film and TV, with your subtitles</h3>
-          <p class="muted">Movies and shows from Jellyfin and Plex with collections, Next Up and Continue Watching. Pick the subtitle and audio track, set a sleep timer, Chromecast Plex films and shows to the TV — or open the Apple TV app, with its quality picker, and carry on from the same place.</p>
+          <p class="muted">Movies and shows from Jellyfin and Plex with collections, Next Up and Continue Watching. Pick the subtitle and audio track, set a sleep timer — or open the Apple TV app, with its quality picker, and carry on from the same place.</p>
           <ul>
             <li>Resume anywhere; progress goes back to the server</li>
             <li>Download Plex films and episodes to watch offline (Jellyfin video downloads are on the roadmap)</li>
@@ -262,7 +262,7 @@
       <div class="card reveal" data-delay="1"><div class="ic">⬇️</div><h3>Offline, for real</h3><p>Background downloads, whole series in one tap, and Downloads sections that open with zero network.</p></div>
       <div class="card reveal" data-delay="2"><div class="ic">🚗</div><h3>CarPlay &amp; Android Auto</h3><p>Audiobookshelf, Grimmory, Plex, Jellyfin and Navidrome in the car, with the live queue, source labels and resume. Premium takes the mixed queue along.</p></div>
       <div class="card reveal" data-delay="3"><div class="ic">⌚</div><h3>Apple Watch &amp; Wear OS</h3><p>Premium. Apple Watch plays Audiobookshelf, Plex, Jellyfin and Navidrome, with audiobooks and Plex albums offline. Wear OS plays and saves Jellyfin and Navidrome, and drives Audiobookshelf on your phone. Playback keeps going when the screen sleeps.</p></div>
-      <div class="card reveal" data-delay="1"><div class="ic">📡</div><h3>Chromecast &amp; AirPlay</h3><p>Chromecast for Audiobookshelf books, Plex and Jellyfin music, and Plex films and shows. AirPlay from the audiobook and music players.</p></div>
+      <div class="card reveal" data-delay="1"><div class="ic">📡</div><h3>AirPlay</h3><p>AirPlay from the audiobook and music players.</p></div>
       <div class="card reveal" data-delay="2"><div class="ic">🔐</div><h3>Sign in your way</h3><p>Passwords, API keys (Kavita, Stump), Plex link codes, and single sign-on for Audiobookshelf, Kavita, Komga, Grimmory and Storyteller in Settings › Edit Servers. Up to three servers per service, unlimited with Premium.</p></div>
       <div class="card reveal" data-delay="3"><div class="ic">📱</div><h3>Widgets, Siri, Spotlight</h3><p>Home-screen widgets on iPhone and Android, Live Activities, and Siri and Spotlight suggestions for what you were last playing or reading.</p></div>
     </div>
@@ -400,6 +400,12 @@ ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
 [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b)
 [Convert]::ToBase64String($b)</code></pre></div>
           <p>For the secrets key, use <code>openssl rand -base64 32</code> — a different value. A key that is set but malformed stops the server from starting, on purpose; leave it out and accounts still sign people in, without keeping their service logins.</p>
+          <p>Paste each into <code>.env</code> after its <code>=</code>, with no quotes. Save <code>.env</code> as plain text (Notepad: <b>Save as type › All files</b>, so it is not named <code>.env.txt</code>). Or write it from PowerShell, which also keeps it plain text (Windows PowerShell's <code>&gt;</code> writes UTF-16, which Docker Compose can misread):</p>
+          <div class="code"><div class="bar"><span>PowerShell</span><button class="copy" type="button">Copy</button></div><pre><code>@"
+ALEXANDRIA_API_TOKEN=&lt;your token&gt;
+ALEXANDRIA_SECRETS_KEY=&lt;your secrets key&gt;
+ALEXANDRIA_SERVER_NAME=Living Room NAS
+"@ | Set-Content -Path .env -Encoding ascii</code></pre></div>
         </details>
         </div>
       </div>
@@ -475,7 +481,7 @@ ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
           <li>Read-Along for Audiobookshelf audiobooks, the follow-as-you-listen teleprompter, on supported devices</li>
           <li>Music queues of any length from one service — Plex, Jellyfin or Navidrome — with shuffle and reordering, plus an Up Next queue for your audiobooks</li>
           <li>Radio stations from each music service's own library</li>
-          <li>CarPlay, Android Auto, Chromecast and AirPlay</li>
+          <li>CarPlay, Android Auto and AirPlay</li>
           <li>Statistics, goals and reading plans</li>
           <li>Sleep timer, synced lyrics, and search across both services</li>
           <li>Join a Party Play session on any of your devices, with your own companion server</li>
@@ -608,7 +614,6 @@ ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
           <div class="issue"><div><b>Generic OPDS server support</b><p>Custom OPDS: any open or password-protected OPDS 1.2 or 2.0 catalog.</p></div><span class="status shipped">Shipped</span></div>
           <div class="issue"><div><b>Apple TV app</b><p>From the “exploring” list to the App Store: Alexandria for Apple TV is out now.</p></div><span class="status shipped">Shipped</span></div>
           <div class="issue"><div><b>Batch downloads</b><p>Download Series — one tap queues an entire series.</p></div><span class="status shipped">Shipped</span></div>
-          <div class="issue"><div><b>Jellyfin Chromecast casting</b><p>Cast Jellyfin music to a Chromecast.</p></div><span class="status shipped">Shipped</span></div>
           <div class="issue"><div><b>Single sign-on beyond Audiobookshelf</b><p>OIDC for Audiobookshelf, Kavita, Komga, Grimmory and Storyteller from Settings › Edit Servers; Kavita also signs in with an API key alone.</p></div><span class="status shipped">Shipped</span></div>
           <div class="issue"><div><b>Sleep timer enhancements</b><p>Fades out, shake to extend, your own presets — and it keeps counting with the phone locked.</p></div><span class="status shipped">Shipped</span></div>
           <div class="issue"><div><b>Finding servers on your network</b><p>Tap Scan to find Audiobookshelf servers on your Wi-Fi; Plex sign-in lists your servers for you.</p></div><span class="status shipped">Shipped</span></div>
@@ -662,7 +667,7 @@ ALEXANDRIA_SERVER_NAME=Living Room NAS</code></pre></div>
       </details>
       <details>
         <summary>Does it see my media, or send anything to you?</summary>
-        <p>No. It never holds your media. Media-server sign-ins stay on each device, unless you set people up with Alexandria accounts: then the logins you give them are kept sealed, and only their own devices can open them. It sends nothing to us. It connects only to your own servers, and only to create or reset an account you asked for. Each person's statistics stay in one database file on your machine, and the admin page shows counts and dates, never what anyone listened to or read.</p>
+        <p>No. It never holds your media. Media-server sign-ins stay on each device, unless you set people up with Alexandria accounts: then the logins you give them are kept sealed, and only their own devices can open them. It sends nothing to us. It connects only to your own servers, and only to create or reset an account you asked for. One exception, only while someone is picked from a Plex server: every 15 minutes it asks plex.tv for its own public internet address (no sign-in or key is sent), to keep that person's saved Plex addresses current; <code>ALEXANDRIA_PLEX_ADDRESS_WATCH=off</code> stops it. Each person's statistics stay in one database file on your machine, and the admin page shows counts and dates, never what anyone listened to or read.</p>
       </details>
       <details>
         <summary>Can I use it away from home?</summary>
